@@ -11,194 +11,242 @@
   <meta property="og:title" content="LMS — 학교 서버에 설치하는 학습 관리 시스템">
   <meta property="og:description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 설치합니다.">
   <meta property="og:image" content="https://lms.mint-soft.com/assets/learner-home.png">
-  <meta name="theme-color" content="#f2eee4">
+  <meta name="theme-color" content="#070b13">
+  <meta name="color-scheme" content="dark">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232557a3'/%3E%3Cpath d='M16 9 5 14l11 5 11-5-11-5Zm-6 9v4c0 1.5 2.7 3 6 3s6-1.5 6-3v-4' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add("js");</script>
   <style>
     :root {
-      --paper: #f2eee4;
-      --paper-deep: #e8e2d4;
-      --sheet: #fbf9f4;
-      --ink: #131c2e;
-      --ink-soft: #46506a;
-      --ink-faint: #7d8496;
-      --rule: #cdc5b3;
-      --navy: #2557a3;
-      --navy-deep: #1a3a66;
-      --stamp: #b93a1b;
+      --bg: #070b13;
+      --panel: #0c1220;
+      --panel-2: #131b2c;
+      --line: #1b2537;
+      --line-strong: #2d3b57;
+      --text: #ebe7dd;
+      --soft: #a3acbf;
+      --faint: #68738c;
+      --accent: #78a9ea;
+      --accent-deep: #2557a3;
+      --amber: #f0a23b;
       --display: "Gowun Batang", "Nanum Myeongjo", serif;
       --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
       --gutter: clamp(20px, 5vw, 56px);
-      --line: 32px;
+      --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
     body {
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--bg);
+      color: var(--text);
       font-family: var(--body);
       font-size: 17px;
       line-height: 1.75;
       word-break: keep-all;
       overflow-wrap: anywhere;
+      -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; }
-    :focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+    code { font-family: var(--mono); font-size: 0.88em; background: var(--panel-2); color: var(--text); padding: 1px 6px; }
+    ::selection { background: var(--accent-deep); color: #fff; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    [id] { scroll-margin-top: 60px; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
     .skip { position: absolute; left: -9999px; }
-    .skip:focus { left: 16px; top: 16px; z-index: 20; background: var(--ink); color: var(--paper); padding: 8px 14px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 30; background: var(--text); color: var(--bg); padding: 8px 14px; }
 
     /* 머리글 */
-    .masthead { border-bottom: 1px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 10; }
+    .masthead { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
     .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 60px; }
     .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
     .brand b { font-family: var(--display); font-size: 22px; letter-spacing: 0.04em; }
-    .brand span { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.08em; }
+    .brand span { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: 0.08em; }
     .masthead nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px); font-size: 14px; }
-    .masthead nav a { text-decoration: none; color: var(--ink-soft); }
-    .masthead nav a:hover { color: var(--ink); }
-    .masthead nav a.ask { color: var(--paper); background: var(--ink); padding: 7px 16px; }
-    .masthead nav a.ask:hover { background: var(--navy-deep); color: #fff; }
+    .masthead nav a { text-decoration: none; color: var(--soft); transition: color 0.2s; }
+    .masthead nav a:hover { color: var(--text); }
+    .masthead nav a.ask { color: var(--bg); background: var(--accent); padding: 7px 16px; font-weight: 600; }
+    .masthead nav a.ask:hover { background: #9cc2f3; color: var(--bg); }
+    .progress { position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
     @media (max-width: 720px) { .masthead nav a:not(.ask) { display: none; } }
 
     /* 첫 화면 */
     .hero { position: relative; padding: clamp(48px, 9vw, 104px) 0 0; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--line) - 1px), color-mix(in srgb, var(--rule) 55%, transparent) calc(var(--line) - 1px), color-mix(in srgb, var(--rule) 55%, transparent) var(--line));
-      mask-image: linear-gradient(to bottom, #000 0, #000 55%, transparent 92%);
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+    .hero-bg::before {
+      content: ""; position: absolute; inset: -48px;
+      background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--line-strong) 45%, transparent) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--line-strong) 45%, transparent) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 75% 65% at 62% 30%, #000 0%, transparent 78%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 62% 30%, #000 0%, transparent 78%);
+    }
+    .hero-bg::after {
+      content: ""; position: absolute; width: 820px; height: 820px; right: -180px; top: -320px; border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(53, 112, 205, 0.36), transparent);
     }
     .hero .wrap { position: relative; }
-    .kicker { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 28px; }
-    .seal { display: inline-block; border: 1.5px solid var(--stamp); color: var(--stamp); padding: 2px 9px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; transform: rotate(-3deg); }
+    .kicker { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--soft); margin: 0 0 28px; }
+    .seal { display: inline-block; border: 1.5px solid var(--amber); color: var(--amber); padding: 2px 9px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; transform: rotate(-3deg); }
     h1 { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 7.6vw, 98px); line-height: 1.14; letter-spacing: -0.02em; margin: 0; }
-    h1 em { font-style: normal; color: var(--navy); }
+    h1 .ln { display: block; overflow: hidden; padding-bottom: 0.06em; }
+    h1 .ln > span { display: block; }
+    h1 em { font-style: normal; color: var(--accent); }
     .hero-foot { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(24px, 5vw, 72px); align-items: end; margin-top: clamp(28px, 4vw, 48px); }
-    .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); margin: 0; max-width: 34em; }
+    .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--soft); margin: 0; max-width: 34em; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; font-size: 15px; font-weight: 600; text-decoration: none; border: 1px solid var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
-    .btn.solid { background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--navy); }
-    .btn.line { background: transparent; color: var(--ink); }
-    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--navy); }
-    .facts { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); font-size: 14px; }
-    .facts li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
-    .facts span { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; padding-top: 2px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; font-size: 15px; font-weight: 600; text-decoration: none; border: 1px solid var(--line-strong); transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s, background 0.2s; }
+    .btn.solid { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .btn.solid:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -10px rgba(120, 169, 234, 0.6); }
+    .btn.line { color: var(--text); }
+    .btn.line:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .btn .arrow { transition: transform 0.2s var(--ease); }
+    .btn:hover .arrow { transform: translateX(4px); }
+    .facts { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); font-size: 14px; }
+    .facts li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .facts span { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: 0.04em; padding-top: 2px; }
     @media (max-width: 860px) { .hero-foot { grid-template-columns: 1fr; } }
 
-    .shot { border: 1px solid var(--ink); background: var(--sheet); box-shadow: 10px 10px 0 var(--paper-deep), 10px 10px 0 1px var(--ink); }
-    .shot-bar { display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
-    .shot-bar i { width: 8px; height: 8px; border: 1px solid var(--ink); border-radius: 50%; }
-    .hero-shot { margin-top: clamp(40px, 6vw, 72px); margin-bottom: -1px; }
-    .hero-shot .shot { box-shadow: none; border-bottom: 0; }
+    /* 화면 틀 */
+    .shot { border: 1px solid var(--line-strong); background: var(--panel); box-shadow: 0 40px 120px -50px rgba(53, 112, 205, 0.55); transition: border-color 0.3s, box-shadow 0.3s; }
+    .shot:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line-strong)); box-shadow: 0 40px 120px -40px rgba(53, 112, 205, 0.75); }
+    .shot-bar { display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--line-strong); font-family: var(--mono); font-size: 11px; color: var(--soft); letter-spacing: 0.04em; }
+    .shot-bar i { width: 8px; height: 8px; border: 1px solid var(--faint); border-radius: 50%; }
+    .shot img { width: 100%; }
+    .shot img.crop { object-fit: cover; object-position: top; }
+    .hero-shot { margin-top: clamp(40px, 6vw, 72px); perspective: 1800px; }
+    .hero-shot .shot { border-bottom: 0; box-shadow: 0 -30px 140px -40px rgba(53, 112, 205, 0.6); transform-origin: 50% 100%; }
 
     /* 장(章) */
-    [id] { scroll-margin-top: 60px; }
-    section.chapter { border-top: 1px solid var(--ink); padding: clamp(56px, 8vw, 104px) 0; }
+    section.chapter { border-top: 1px solid var(--line); padding: clamp(56px, 8vw, 104px) 0; }
     .chapter-head { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: clamp(16px, 4vw, 48px); margin-bottom: clamp(32px, 5vw, 56px); }
-    .chapter-no { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-faint); padding-top: 14px; }
-    .chapter-no b { display: block; font-family: var(--display); font-size: 44px; line-height: 1; color: var(--ink); letter-spacing: 0; margin-bottom: 8px; }
+    .chapter-no { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--faint); padding-top: 14px; }
+    .chapter-no b { display: block; font-family: var(--display); font-size: 44px; line-height: 1; color: var(--accent); letter-spacing: 0; margin-bottom: 8px; }
     h2 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 4vw, 46px); line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 14px; }
-    .chapter-head p { margin: 0; color: var(--ink-soft); max-width: 38em; }
+    .chapter-head p { margin: 0; color: var(--soft); max-width: 38em; }
     @media (max-width: 720px) { .chapter-head { grid-template-columns: 1fr; } .chapter-no { padding-top: 0; } .chapter-no b { display: inline; font-size: 28px; margin-right: 10px; } }
 
     /* 세 화면 */
-    .tabs { display: flex; border: 1px solid var(--ink); width: fit-content; max-width: 100%; }
-    .tabs button { font: inherit; font-size: 15px; font-weight: 500; background: transparent; color: var(--ink-soft); border: 0; border-right: 1px solid var(--ink); padding: 11px clamp(14px, 2.6vw, 26px); cursor: pointer; }
+    .tabs { display: flex; border: 1px solid var(--line-strong); width: fit-content; max-width: 100%; }
+    .tabs button { font: inherit; font-size: 15px; font-weight: 500; background: transparent; color: var(--soft); border: 0; border-right: 1px solid var(--line-strong); padding: 11px clamp(14px, 2.6vw, 26px); cursor: pointer; transition: background 0.25s, color 0.25s; }
     .tabs button:last-child { border-right: 0; }
-    .tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+    .tabs button:hover { color: var(--text); }
+    .tabs button[aria-selected="true"] { background: var(--accent); color: var(--bg); font-weight: 600; }
     .panel { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin-top: 32px; }
     .panel[hidden] { display: none; }
     .panel h3 { font-family: var(--display); font-size: 26px; margin: 0 0 6px; }
-    .panel .who { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.06em; margin: 0 0 18px; }
-    .panel ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
-    .panel li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--rule); position: relative; font-size: 15.5px; }
-    .panel li::before { content: "○"; position: absolute; left: 2px; top: 10px; color: var(--navy); font-size: 13px; }
-    .pair { display: grid; gap: 22px; }
+    .panel .who { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: 0.06em; margin: 0 0 18px; }
+    .panel ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+    .panel li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--line); position: relative; font-size: 15.5px; color: var(--soft); }
+    .panel li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 7px; height: 7px; border: 1px solid var(--accent); border-radius: 50%; }
+    .pair { display: grid; gap: 26px; }
     @media (max-width: 860px) { .panel { grid-template-columns: 1fr; } }
 
     /* 사용법 */
-    .act { display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; margin: clamp(48px, 7vw, 80px) 0 0; }
+    .act { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--line-strong); padding-bottom: 12px; margin: clamp(48px, 7vw, 80px) 0 0; }
     .act:first-of-type { margin-top: 0; }
     .act h3 { font-family: var(--display); font-size: clamp(22px, 2.6vw, 30px); margin: 0; }
-    .act span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-faint); }
+    .act span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--accent); }
     .steps { list-style: none; margin: 0; padding: 0; }
-    .step { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; padding: clamp(28px, 4vw, 44px) 0; border-bottom: 1px solid var(--rule); }
-    .step-no { font-family: var(--display); font-size: 40px; line-height: 1; color: var(--navy); }
+    .step { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; padding: clamp(28px, 4vw, 44px) 0; border-bottom: 1px solid var(--line); }
+    .step-no { font-family: var(--display); font-size: 40px; line-height: 1; color: var(--accent); }
     .step h4 { font-family: var(--display); font-size: 23px; margin: 10px 0 8px; }
-    .step p { margin: 0 0 10px; color: var(--ink-soft); font-size: 16px; }
+    .step p { margin: 0 0 10px; color: var(--soft); font-size: 16px; }
     .step p:last-child { margin-bottom: 0; }
-    .step b { color: var(--ink); font-weight: 600; }
-    .step code { font-family: var(--mono); font-size: 0.88em; background: var(--paper-deep); padding: 1px 5px; }
-    .step .pair { gap: 26px; }
-    .shot img.crop { width: 100%; object-fit: cover; object-position: top; }
-    .addr { margin: 0; border-top: 1px solid var(--ink); font-size: 15px; }
-    .addr div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
-    .addr dt { color: var(--ink-soft); }
+    .step b { color: var(--text); font-weight: 600; }
+    .addr { margin: 0; border-top: 1px solid var(--line-strong); font-size: 15px; }
+    .addr div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .addr dt { color: var(--soft); }
     .addr dd { margin: 0; font-family: var(--mono); font-size: 13.5px; }
+    @media (min-width: 861px) { .step > div:first-child { position: sticky; top: 92px; } }
     @media (max-width: 860px) { .step { grid-template-columns: 1fr; } }
 
     /* 기능 대장 */
-    .ledger { border-top: 2px solid var(--ink); }
-    .ledger > div { display: grid; grid-template-columns: 56px 220px minmax(0, 1fr); gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
-    .ledger .n { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+    .ledger { border-top: 1px solid var(--line-strong); }
+    .ledger > div { position: relative; display: grid; grid-template-columns: 56px 220px minmax(0, 1fr); gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .ledger > div::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to right, color-mix(in srgb, var(--accent-deep) 22%, transparent), transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .ledger > div::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease); }
+    .ledger > div:hover::before { opacity: 1; }
+    .ledger > div:hover::after { transform: scaleX(1); }
+    .ledger > div > * { position: relative; }
+    .ledger .n { font-family: var(--mono); font-size: 12px; color: var(--faint); }
     .ledger h3 { font-family: var(--display); font-size: 22px; margin: 0; }
-    .ledger p { margin: 0; color: var(--ink-soft); font-size: 16px; }
+    .ledger p { margin: 0; color: var(--soft); font-size: 16px; }
     @media (max-width: 720px) { .ledger > div { grid-template-columns: 36px 1fr; } .ledger p { grid-column: 2; } }
 
     /* 설치 */
     .install { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
-    .term { background: var(--ink); color: #dfe5f1; font-family: var(--mono); font-size: 14px; line-height: 1.9; padding: 22px 24px 26px; box-shadow: 10px 10px 0 var(--navy); overflow-x: auto; }
-    .term .c { color: #7f8aa3; }
-    .term .p { color: #86afe1; user-select: none; }
-    .term .ok { color: #9fd3a8; }
-    .term pre { margin: 0; font: inherit; white-space: pre; }
-    .modes { display: grid; gap: 0; border-top: 1px solid var(--ink); }
-    .modes > div { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+    .term { background: #04070d; border: 1px solid var(--line-strong); color: #d9e0ee; font-family: var(--mono); font-size: 14px; line-height: 1.9; box-shadow: 0 40px 120px -50px rgba(53, 112, 205, 0.6); overflow: hidden; }
+    .term-bar { display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--line-strong); font-size: 11px; color: var(--soft); letter-spacing: 0.04em; }
+    .term-bar i { width: 8px; height: 8px; border: 1px solid var(--faint); border-radius: 50%; }
+    .term pre { margin: 0; padding: 20px 24px 26px; font: inherit; white-space: pre; overflow-x: auto; }
+    .term .c { color: #66718a; }
+    .term .p { color: var(--accent); user-select: none; }
+    .term .caret { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 2px; }
+    .modes { display: grid; border-top: 1px solid var(--line-strong); }
+    .modes > div { padding: 18px 0; border-bottom: 1px solid var(--line); }
     .modes h3 { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
-    .modes p { margin: 0; font-size: 15.5px; color: var(--ink-soft); }
-    .modes code, .ledger code, .spec code { font-family: var(--mono); font-size: 0.88em; background: var(--paper-deep); padding: 1px 5px; }
+    .modes p { margin: 0; font-size: 15.5px; color: var(--soft); }
     @media (max-width: 860px) { .install { grid-template-columns: 1fr; } }
 
     /* 사양 */
-    .spec { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(24px, 4vw, 56px); }
+    .spec { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
     table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
-    caption { text-align: left; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-faint); padding-bottom: 10px; }
-    th, td { text-align: left; padding: 11px 12px 11px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
-    thead th { border-bottom: 2px solid var(--ink); font-weight: 600; font-size: 13.5px; }
-    tbody th { font-weight: 500; color: var(--ink-soft); width: 6.5em; }
-    .note { font-size: 14px; color: var(--ink-faint); margin: 14px 0 0; }
+    th, td { text-align: left; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    thead th { border-bottom: 1px solid var(--line-strong); font-weight: 500; font-size: 12px; font-family: var(--mono); letter-spacing: 0.08em; color: var(--faint); }
+    tbody th { font-weight: 500; color: var(--soft); width: 6.5em; }
+    .notes { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+    .notes li { padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; color: var(--soft); }
+    .notes b { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
     @media (max-width: 860px) { .spec { grid-template-columns: 1fr; } }
 
-    /* 준비 중 */
-    .next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px dashed var(--ink-soft); }
-    .next > div { padding: 22px 24px; border-right: 1px dashed var(--ink-soft); }
-    .next > div:last-child { border-right: 0; }
-    .next h3 { font-family: var(--display); font-size: 20px; margin: 0 0 6px; }
-    .next p { margin: 0; font-size: 15px; color: var(--ink-soft); }
-    @media (max-width: 720px) { .next { grid-template-columns: 1fr; } .next > div { border-right: 0; border-bottom: 1px dashed var(--ink-soft); } .next > div:last-child { border-bottom: 0; } }
-
     /* 문의 */
-    .ask-block { background: var(--ink); color: var(--paper); border-top: 1px solid var(--ink); padding: clamp(56px, 8vw, 96px) 0; }
-    .ask-block .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; }
-    .ask-block h2 { color: var(--paper); margin: 0 0 12px; }
-    .ask-block p { margin: 0; color: #b9c1d3; max-width: 34em; }
-    .ask-block .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); box-shadow: 4px 4px 0 var(--navy); }
+    .ask-block { position: relative; border-top: 1px solid var(--line); padding: clamp(64px, 9vw, 120px) 0; overflow: hidden; }
+    .ask-block::before { content: ""; position: absolute; left: 50%; bottom: -520px; width: 1100px; height: 760px; margin-left: -550px; border-radius: 50%; background: radial-gradient(closest-side, rgba(53, 112, 205, 0.42), transparent); pointer-events: none; }
+    .ask-block .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; }
+    .ask-block h2 { font-size: clamp(32px, 5vw, 60px); margin: 0 0 12px; }
+    .ask-block p { margin: 0; color: var(--soft); max-width: 34em; }
     @media (max-width: 720px) { .ask-block .wrap { grid-template-columns: 1fr; } }
 
-    footer { background: var(--ink); color: #8f98ad; border-top: 1px solid #2c3750; font-size: 13px; padding: 22px 0 30px; }
+    footer { border-top: 1px solid var(--line); color: var(--faint); font-size: 13px; padding: 22px 0 30px; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
-    footer a { color: #b9c1d3; }
+    footer a { color: var(--soft); }
 
-    /* 등장 */
+    /* 움직임 — 스크립트가 켜져 있고 사용자가 줄이기를 원하지 않을 때만 */
     @media (prefers-reduced-motion: no-preference) {
-      .rise { opacity: 0; transform: translateY(18px); animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+      .hero-bg::before { animation: drift 24s linear infinite; }
+      .hero-bg::after { animation: breathe 9s ease-in-out infinite; }
+      @keyframes drift { to { transform: translate(48px, 48px); } }
+      @keyframes breathe { 50% { transform: scale(1.12); opacity: 0.75; } }
+
+      .js .rise { opacity: 0; transform: translateY(18px); animation: rise 0.8s var(--ease) forwards; animation-delay: var(--d, 0s); }
       @keyframes rise { to { opacity: 1; transform: none; } }
+      .js h1 .ln > span { transform: translateY(105%); animation: lift 1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+      @keyframes lift { to { transform: none; } }
+      .js .seal { animation: stamp 0.5s 0.5s var(--ease) backwards; }
+      @keyframes stamp { from { opacity: 0; transform: rotate(-14deg) scale(1.8); } }
+      .js .hero-shot .shot { opacity: 0; transform: rotateX(14deg) translateY(60px) scale(0.96); animation: settle 1.3s 0.45s var(--ease) forwards; }
+      @keyframes settle { to { opacity: 1; transform: none; } }
+
+      .js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), border-color 0.3s, box-shadow 0.3s; transition-delay: var(--d, 0s); }
+      .js [data-reveal="shot"] { transform: translateY(40px) scale(0.97); }
+      .js [data-reveal="left"] { transform: translateX(-24px); }
+      .js [data-reveal].in { opacity: 1; transform: none; }
+      .js .act { background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 1px no-repeat; transition: background-size 1.1s var(--ease); }
+      .js .act.in { background-size: 100% 1px; }
+
+      .panel:not([hidden]) > * { animation: swap 0.5s var(--ease) backwards; }
+      .panel:not([hidden]) > *:last-child { animation-delay: 0.08s; }
+      @keyframes swap { from { opacity: 0; transform: translateY(14px); } }
+
+      .term .caret { animation: blink 1s steps(1) infinite; }
+      @keyframes blink { 50% { opacity: 0; } }
     }
   </style>
 </head>
@@ -217,32 +265,37 @@
         <a class="ask" href="#ask">도입 문의</a>
       </nav>
     </div>
+    <div class="progress" aria-hidden="true"></div>
   </header>
 
   <main id="main">
     <div class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
       <div class="wrap">
         <p class="kicker rise"><span class="seal">설치형</span>학교용 학습 관리 시스템</p>
-        <h1 class="rise" style="--d: 0.08s">학교 서버 한 대에,<br><em>수업 전체</em>를.</h1>
+        <h1>
+          <span class="ln"><span style="--d: 0.1s">학교 서버 한 대에,</span></span>
+          <span class="ln"><span style="--d: 0.22s"><em>수업 전체</em>를.</span></span>
+        </h1>
         <div class="hero-foot">
-          <div class="rise" style="--d: 0.18s">
+          <div class="rise" style="--d: 0.5s">
             <p class="lede">학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 Docker 로 한 번에 설치합니다. 계정과 출결, 수업 자료는 모두 학교 서버에 저장됩니다.</p>
             <div class="actions">
-              <a class="btn solid" href="#ask">도입 문의</a>
-              <a class="btn line" href="#screens">화면 보기</a>
+              <a class="btn solid" href="#ask">도입 문의 <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="btn line" href="#howto">사용법 보기</a>
             </div>
           </div>
-          <ul class="facts rise" style="--d: 0.28s">
+          <ul class="facts rise" style="--d: 0.62s">
             <li><span>구성</span>학습자 앱 · 교수 콘솔 · 운영 콘솔</li>
             <li><span>설치</span>명령 한 번, 다시 돌려도 안전</li>
             <li><span>접속</span>교내망 IP 또는 도메인 HTTPS</li>
             <li><span>운영</span>백업 · 복원 · 업데이트 스크립트 포함</li>
           </ul>
         </div>
-        <div class="hero-shot rise" style="--d: 0.38s">
+        <div class="hero-shot">
           <div class="shot">
             <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 메인화면</div>
-            <img src="assets/learner-home.png" width="1280" height="844" alt="학습자 앱 메인화면. 학습 진행 현황 50%, 학습 과정·문서자료·영상자료·수업 바로가기, 공지사항이 보인다.">
+            <img src="assets/learner-home.png" width="1280" height="844" alt="학습자 앱 메인화면. 학습 진행 현황, 학습 과정·문서자료·영상자료·수업 바로가기, 공지사항이 보인다.">
           </div>
         </div>
       </div>
@@ -250,7 +303,7 @@
 
     <section class="chapter" id="screens">
       <div class="wrap">
-        <div class="chapter-head">
+        <div class="chapter-head" data-reveal>
           <div class="chapter-no"><b>01</b>세 개의 화면</div>
           <div>
             <h2>학생, 교수, 운영자가<br>각자의 화면으로 들어옵니다</h2>
@@ -258,62 +311,58 @@
           </div>
         </div>
 
-        <div class="tabs" role="tablist" aria-label="화면 선택">
-          <button role="tab" id="tab-learner" aria-controls="panel-learner" aria-selected="true">학습자 앱</button>
-          <button role="tab" id="tab-instructor" aria-controls="panel-instructor" aria-selected="false" tabindex="-1">교수 콘솔</button>
-          <button role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1">운영 콘솔</button>
-        </div>
-
-        <div class="panel" role="tabpanel" id="panel-learner" aria-labelledby="tab-learner">
-          <div>
-            <h3>학습자 앱</h3>
-            <p class="who">학생</p>
-            <ul>
-              <li>수강 중인 과정의 문서와 영상을 순서대로 학습</li>
-              <li>과정별 진도와 남은 항목 확인</li>
-              <li>실시간 수업 입장과 수업 스케줄</li>
-              <li>공지사항</li>
-            </ul>
+        <div data-reveal>
+          <div class="tabs" role="tablist" aria-label="화면 선택">
+            <button role="tab" id="tab-learner" aria-controls="panel-learner" aria-selected="true">학습자 앱</button>
+            <button role="tab" id="tab-instructor" aria-controls="panel-instructor" aria-selected="false" tabindex="-1">교수 콘솔</button>
+            <button role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1">운영 콘솔</button>
           </div>
-          <div class="pair">
+
+          <div class="panel" role="tabpanel" id="panel-learner" aria-labelledby="tab-learner">
+            <div>
+              <h3>학습자 앱</h3>
+              <p class="who">학생</p>
+              <ul>
+                <li>수강 중인 과정의 문서와 영상을 순서대로 학습</li>
+                <li>과정별 진도와 남은 항목 확인</li>
+                <li>실시간 수업 입장과 수업 스케줄</li>
+                <li>공지사항</li>
+              </ul>
+            </div>
             <div class="shot">
               <div class="shot-bar"><i></i><i></i><i></i>학습 과정</div>
               <img src="assets/learner-courses.png" width="1280" height="844" loading="lazy" alt="학습 과정 화면. 과정마다 학습 항목과 진도 막대가 표시된다.">
             </div>
           </div>
-        </div>
 
-        <div class="panel" role="tabpanel" id="panel-instructor" aria-labelledby="tab-instructor" hidden>
-          <div>
-            <h3>교수 콘솔</h3>
-            <p class="who">교수자 · 외부 강사</p>
-            <ul>
-              <li>수업 개설과 진행, 학생 입장 링크</li>
-              <li>수업별 출석부와 학생별 출석 통계</li>
-              <li>과목별 진도 현황과 수강 명단</li>
-              <li>교육과정, 문서, 영상, 3D 자료 관리</li>
-            </ul>
-          </div>
-          <div class="pair">
+          <div class="panel" role="tabpanel" id="panel-instructor" aria-labelledby="tab-instructor" hidden>
+            <div>
+              <h3>교수 콘솔</h3>
+              <p class="who">교수자 · 외부 강사</p>
+              <ul>
+                <li>수업 개설과 진행, 학생 입장 링크</li>
+                <li>수업별 출석부와 학생별 출석 통계</li>
+                <li>과목별 진도 현황과 수강 명단</li>
+                <li>교육과정, 문서, 영상, 3D 자료 관리</li>
+              </ul>
+            </div>
             <div class="shot">
               <div class="shot-bar"><i></i><i></i><i></i>출석 통계</div>
               <img src="assets/instructor-attendance.png" width="1280" height="844" loading="lazy" alt="출석 통계 화면. 수업별 출석률과 학생별 출석·결석·체류 시간 표가 보인다.">
             </div>
           </div>
-        </div>
 
-        <div class="panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
-          <div>
-            <h3>운영 콘솔</h3>
-            <p class="who">학사 · 전산 담당자</p>
-            <ul>
-              <li>학과와 교수·학생 계정, 역할 관리</li>
-              <li>과목별 수강 배정</li>
-              <li>전체 수업 운영과 진도 현황</li>
-              <li>구성원·학습·자료 현황판</li>
-            </ul>
-          </div>
-          <div class="pair">
+          <div class="panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
+            <div>
+              <h3>운영 콘솔</h3>
+              <p class="who">학사 · 전산 담당자</p>
+              <ul>
+                <li>학과와 교수·학생 계정, 역할 관리</li>
+                <li>과목별 수강 배정</li>
+                <li>전체 수업 운영과 진도 현황</li>
+                <li>구성원·학습·자료 현황판</li>
+              </ul>
+            </div>
             <div class="shot">
               <div class="shot-bar"><i></i><i></i><i></i>현황</div>
               <img src="assets/admin-home.png" width="1280" height="844" loading="lazy" alt="운영 콘솔 현황 화면. 구성원 수, 평균 진도, 자료 수가 타일로 보인다.">
@@ -325,7 +374,7 @@
 
     <section class="chapter" id="howto">
       <div class="wrap">
-        <div class="chapter-head">
+        <div class="chapter-head" data-reveal>
           <div class="chapter-no"><b>02</b>사용법</div>
           <div>
             <h2>설치한 날부터<br>첫 수업까지</h2>
@@ -333,58 +382,58 @@
           </div>
         </div>
 
-        <div class="act"><h3>운영자가 준비합니다</h3><span>운영 콘솔</span></div>
+        <div class="act" data-act><h3>운영자가 준비합니다</h3><span>운영 콘솔</span></div>
         <ol class="steps">
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">1</div>
               <h4>처음 로그인</h4>
-              <p>운영 콘솔을 열고 아이디 <code>admin</code> 으로 로그인합니다. 초기 비밀번호는 설치할 때 <code>.env</code> 에 적은 값입니다.</p><p>들어간 뒤 <b>설정</b> 화면에서 비밀번호를 먼저 바꿉니다.</p><p>IP 로 설치했을 때의 기본 주소는 다음과 같습니다. 포트는 바꿀 수 있습니다.</p>
+              <p>운영 콘솔을 열고 아이디 <code>admin</code> 으로 로그인합니다. 초기 비밀번호는 설치할 때 <code>.env</code> 에 적은 값입니다.</p>
+              <p>들어간 뒤 <b>설정</b> 화면에서 비밀번호를 먼저 바꿉니다.</p>
+              <p>IP 로 설치했을 때의 기본 주소는 다음과 같습니다. 포트는 바꿀 수 있습니다.</p>
             </div>
-            <dl class="addr">
+            <dl class="addr" data-reveal>
               <div><dt>운영 콘솔</dt><dd>https://서버IP:8082</dd></div>
               <div><dt>교수 콘솔</dt><dd>https://서버IP:8081</dd></div>
               <div><dt>학습자 앱</dt><dd>https://서버IP:8080</dd></div>
             </dl>
           </li>
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">2</div>
               <h4>학과 만들기</h4>
               <p><b>학과</b> 화면에서 <b>학과 추가</b>를 누릅니다. 학과는 교수와 학생이 속하는 단위이고, 뒤의 모든 목록을 학과별로 거를 때 씁니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 학과</div>
-                <img class="crop" style="aspect-ratio: 1280 / 400" src="assets/admin-departments.png" width="1280" height="844" loading="lazy" alt="학과 화면. 컴퓨터공학과, 경영학과, 간호학과가 목록에 있고 학과 추가 버튼이 보인다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 학과</div>
+              <img class="crop" style="aspect-ratio: 1280 / 400" src="assets/admin-departments.png" width="1280" height="844" loading="lazy" alt="학과 화면. 컴퓨터공학과, 경영학과, 간호학과가 목록에 있고 학과 추가 버튼이 보인다.">
             </div>
           </li>
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">3</div>
               <h4>교수·학생 계정 만들기</h4>
-              <p><b>교수·학생</b> 화면에서 <b>구성원 추가</b>로 계정을 만들고 역할과 학과를 정합니다.</p><p>역할을 바꾸면 들어갈 수 있는 앱도 바로 바뀝니다. 교수자와 외부 강사는 교수 콘솔로, 학습자는 학습자 앱으로 로그인합니다.</p>
+              <p><b>교수·학생</b> 화면에서 <b>구성원 추가</b>로 계정을 만들고 역할과 학과를 정합니다.</p>
+              <p>역할을 바꾸면 들어갈 수 있는 앱도 바로 바뀝니다. 교수자와 외부 강사는 교수 콘솔로, 학습자는 학습자 앱으로 로그인합니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 교수·학생</div>
-                <img src="assets/admin-members.png" width="1280" height="844" loading="lazy" alt="교수·학생 관리 화면. 이름, 아이디, 학번, 역할, 학과, 상태가 표로 보이고 구성원 추가 버튼이 있다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 교수·학생</div>
+              <img src="assets/admin-members.png" width="1280" height="844" loading="lazy" alt="교수·학생 관리 화면. 이름, 아이디, 학번, 역할, 학과, 상태가 표로 보이고 구성원 추가 버튼이 있다.">
             </div>
           </li>
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">4</div>
               <h4>교육과정과 수강 배정</h4>
-              <p><b>교육과정</b>에서 과정을 추가하고 학습 항목(문서·영상)과 담당 교수를 정합니다. 등록하면 학습자 앱의 과정 목록에 바로 나타납니다.</p><p><b>수강 관리</b>에서 과목을 고르고 그 과목을 듣는 학생을 지정합니다.</p>
+              <p><b>교육과정</b>에서 과정을 추가하고 학습 항목(문서·영상)과 담당 교수를 정합니다. 등록하면 학습자 앱의 과정 목록에 바로 나타납니다.</p>
+              <p><b>수강 관리</b>에서 과목을 고르고 그 과목을 듣는 학생을 지정합니다.</p>
             </div>
             <div class="pair">
-              <div class="shot">
+              <div class="shot" data-reveal="shot">
                 <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 교육과정</div>
                 <img class="crop" style="aspect-ratio: 1280 / 600" src="assets/admin-courses.png" width="1280" height="844" loading="lazy" alt="교육과정 화면. 과정 여섯 개가 분류, 항목 수, 시간, 담당 교수와 함께 목록으로 보인다.">
               </div>
-              <div class="shot">
+              <div class="shot" data-reveal="shot">
                 <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 수강 관리</div>
                 <img class="crop" style="aspect-ratio: 1280 / 400" src="assets/admin-enrollments.png" width="1280" height="844" loading="lazy" alt="수강 관리 화면. 과목과 학과를 고르고 학생을 검색하는 입력이 보인다.">
               </div>
@@ -392,70 +441,61 @@
           </li>
         </ol>
 
-        <div class="act"><h3>교수가 수업을 엽니다</h3><span>교수 콘솔</span></div>
+        <div class="act" data-act><h3>교수가 수업을 엽니다</h3><span>교수 콘솔</span></div>
         <ol class="steps">
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">5</div>
               <h4>수업 개설</h4>
-              <p><b>내 수업</b>에서 <b>수업 개설</b>을 눌러 과목과 시작 시각을 정합니다.</p><p>만든 수업 옆의 <b>학생 입장 링크 복사</b>로 주소를 받아 학생에게 알리고, 시간이 되면 <b>입장</b>을 눌러 수업방으로 들어갑니다.</p>
+              <p><b>내 수업</b>에서 <b>수업 개설</b>을 눌러 과목과 시작 시각을 정합니다.</p>
+              <p>만든 수업 옆의 <b>학생 입장 링크 복사</b>로 주소를 받아 학생에게 알리고, 시간이 되면 <b>입장</b>을 눌러 수업방으로 들어갑니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 내 수업</div>
-                <img class="crop" style="aspect-ratio: 1280 / 480" src="assets/instructor-lessons.png" width="1280" height="844" loading="lazy" alt="내 수업 화면. 예정·종료 수업 목록과 학생 입장 링크 복사, 입장, 출석부 버튼이 보인다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 내 수업</div>
+              <img class="crop" style="aspect-ratio: 1280 / 480" src="assets/instructor-lessons.png" width="1280" height="844" loading="lazy" alt="내 수업 화면. 예정·종료 수업 목록과 학생 입장 링크 복사, 입장, 출석부 버튼이 보인다.">
             </div>
           </li>
         </ol>
 
-        <div class="act"><h3>학생이 들어옵니다</h3><span>학습자 앱</span></div>
+        <div class="act" data-act><h3>학생이 들어옵니다</h3><span>학습자 앱</span></div>
         <ol class="steps">
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">6</div>
               <h4>수업 입장</h4>
-              <p>학습자 앱의 <b>수업</b> 메뉴에 내가 듣는 수업이 예정·종료로 나뉘어 보입니다. 받은 링크나 이 목록에서 수업방으로 들어갑니다.</p><p>수업방에서는 교수의 카메라와 화면 공유, 3D 자료를 보고 채팅으로 대화합니다. 대화는 서버에 남아 다시 들어와도 이어서 보입니다.</p>
+              <p>학습자 앱의 <b>수업</b> 메뉴에 내가 듣는 수업이 예정·종료로 나뉘어 보입니다. 받은 링크나 이 목록에서 수업방으로 들어갑니다.</p>
+              <p>수업방에서는 교수의 카메라와 화면 공유, 3D 자료를 보고 채팅으로 대화합니다. 대화는 서버에 남아 다시 들어와도 이어서 보입니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 수업</div>
-                <img src="assets/learner-sessions.png" width="1280" height="844" loading="lazy" alt="수업 목록 화면. 예정 수업 하나와 종료된 수업 셋이 카드로 보인다.">
-              </div>
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 수업방</div>
-                <img src="assets/learner-live.png" width="1280" height="844" loading="lazy" alt="수업방 화면. 왼쪽에 3D 모델·화면 공유 영역, 오른쪽에 카메라, 참여자 두 명, 채팅이 보인다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 수업</div>
+              <img class="crop" style="aspect-ratio: 1280 / 520" src="assets/learner-sessions.png" width="1280" height="844" loading="lazy" alt="수업 목록 화면. 예정 수업 하나와 종료된 수업 셋이 카드로 보인다.">
             </div>
           </li>
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">7</div>
               <h4>과정 학습</h4>
               <p><b>학습 과정</b>에서 수강 중인 과정의 문서와 영상을 순서대로 엽니다. 마친 항목에는 표시가 붙고 과정별 진도 막대가 채워집니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 학습 과정</div>
-                <img src="assets/learner-courses.png" width="1280" height="844" loading="lazy" alt="학습 과정 화면. 과정마다 학습 항목과 진도 막대가 표시된다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 학습 과정</div>
+              <img class="crop" style="aspect-ratio: 1280 / 690" src="assets/learner-courses.png" width="1280" height="844" loading="lazy" alt="학습 과정 화면. 과정마다 학습 항목과 진도 막대가 표시된다.">
             </div>
           </li>
         </ol>
 
-        <div class="act"><h3>교수가 결과를 봅니다</h3><span>교수 콘솔</span></div>
+        <div class="act" data-act><h3>교수가 결과를 봅니다</h3><span>교수 콘솔</span></div>
         <ol class="steps">
           <li class="step">
-            <div>
+            <div data-reveal="left">
               <div class="step-no">8</div>
               <h4>출석과 진도 확인</h4>
-              <p><b>출석 통계</b>에서 수업별 출석률과 학생별 결석을 보고, 수업마다 <b>출석부</b>를 엽니다.</p><p><b>진도 현황</b>은 과목 수강생의 진도 분포와 학생별 진행 상황을 보여 주며 CSV 로 내려받을 수 있습니다.</p>
+              <p><b>출석 통계</b>에서 수업별 출석률과 학생별 결석을 보고, 수업마다 <b>출석부</b>를 엽니다.</p>
+              <p><b>진도 현황</b>은 과목 수강생의 진도 분포와 학생별 진행 상황을 보여 주며 CSV 로 내려받을 수 있습니다.</p>
             </div>
-            <div class="pair">
-              <div class="shot">
-                <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 진도 현황</div>
-                <img src="assets/instructor-progress.png" width="1280" height="844" loading="lazy" alt="진도 현황 화면. 평균 진도 타일, 진도 분포 막대그래프, 학생별 진도 표와 CSV 내려받기 버튼이 보인다.">
-              </div>
+            <div class="shot" data-reveal="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 진도 현황</div>
+              <img src="assets/instructor-progress.png" width="1280" height="844" loading="lazy" alt="진도 현황 화면. 평균 진도 타일, 진도 분포 막대그래프, 학생별 진도 표와 CSV 내려받기 버튼이 보인다.">
             </div>
           </li>
         </ol>
@@ -464,51 +504,52 @@
 
     <section class="chapter" id="features">
       <div class="wrap">
-        <div class="chapter-head">
+        <div class="chapter-head" data-reveal>
           <div class="chapter-no"><b>03</b>기능</div>
           <div>
-            <h2>지금 들어 있는 것</h2>
-            <p>현재 버전(v0.2.0)에 구현된 기능입니다.</p>
+            <h2>들어 있는 기능</h2>
+            <p>현재 버전(v0.2.0) 기준입니다.</p>
           </div>
         </div>
-        <div class="ledger">
-          <div><span class="n">가</span><h3>실시간 수업</h3><p>영상, 음성, 화면 공유와 채팅으로 수업을 진행합니다. 수업에 입장 비밀번호를 걸 수 있고, 3D 자료를 수업방에 띄워 함께 볼 수 있습니다.</p></div>
-          <div><span class="n">나</span><h3>학습 자료</h3><p>문서, 영상, 3D 모델(GLB)을 올리고 분류합니다. 파일 하나의 상한은 300MB 입니다.</p></div>
-          <div><span class="n">다</span><h3>교육과정과 진도</h3><p>과정에 학습 항목을 묶어 순서를 만들고, 학생별·과목별로 어디까지 마쳤는지 봅니다.</p></div>
-          <div><span class="n">라</span><h3>출석</h3><p>수업마다 출석부가 남고, 학생별 출석률과 체류 시간, 결석 횟수를 통계로 봅니다.</p></div>
-          <div><span class="n">마</span><h3>구성원과 권한</h3><p>운영자, 교수자, 외부 강사, 학습자 네 역할로 나눕니다. 역할이 없는 계정은 로그인되지 않습니다.</p></div>
-          <div><span class="n">바</span><h3>학과</h3><p>구성원을 학과에 소속시키고 목록을 학과별로 걸러 봅니다.</p></div>
+        <div class="ledger" data-stagger>
+          <div data-reveal><span class="n">가</span><h3>실시간 수업</h3><p>영상, 음성, 화면 공유와 채팅으로 수업을 진행합니다. 수업에 입장 비밀번호를 걸 수 있고, 3D 자료를 수업방에 띄워 함께 볼 수 있습니다.</p></div>
+          <div data-reveal><span class="n">나</span><h3>학습 자료</h3><p>문서, 영상, 3D 모델(GLB)을 올리고 분류합니다. 파일 하나의 상한은 300MB 입니다.</p></div>
+          <div data-reveal><span class="n">다</span><h3>교육과정과 진도</h3><p>과정에 학습 항목을 묶어 순서를 만들고, 학생별·과목별로 어디까지 마쳤는지 봅니다.</p></div>
+          <div data-reveal><span class="n">라</span><h3>출석</h3><p>수업마다 출석부가 남고, 학생별 출석률과 체류 시간, 결석 횟수를 통계로 봅니다.</p></div>
+          <div data-reveal><span class="n">마</span><h3>구성원과 권한</h3><p>운영자, 교수자, 외부 강사, 학습자 네 역할로 나눕니다. 역할이 없는 계정은 로그인되지 않습니다.</p></div>
+          <div data-reveal><span class="n">바</span><h3>학과</h3><p>구성원을 학과에 소속시키고 목록을 학과별로 걸러 봅니다.</p></div>
         </div>
       </div>
     </section>
 
     <section class="chapter" id="install">
       <div class="wrap">
-        <div class="chapter-head">
+        <div class="chapter-head" data-reveal>
           <div class="chapter-no"><b>04</b>설치와 운영</div>
           <div>
             <h2>설정 파일 하나, 명령 한 번</h2>
-            <p>설정과 비밀값은 <code style="font-family: var(--mono); font-size: 0.88em">.env</code> 한 파일에 모입니다. 설치 스크립트는 여러 번 돌려도 기존 계정과 데이터를 건드리지 않습니다.</p>
+            <p>설정과 비밀값은 <code>.env</code> 한 파일에 모입니다. 설치 스크립트는 여러 번 돌려도 기존 계정과 데이터를 건드리지 않습니다.</p>
           </div>
         </div>
         <div class="install">
-          <div class="term" aria-label="설치 명령 예시">
+          <div class="term" data-reveal="shot" data-type aria-label="설치 명령 예시">
+            <div class="term-bar"><i></i><i></i><i></i>lms — bash</div>
 <pre><span class="c"># 1. 설정 파일을 만들고 서버 주소와 비밀번호를 적는다</span>
-<span class="p">$</span> cp .env.example .env
+<span class="p">$</span> <span class="cmd">cp .env.example .env</span>
 
 <span class="c"># 2. 전체 스택 설치와 기동</span>
-<span class="p">$</span> ./scripts/install.sh
+<span class="p">$</span> <span class="cmd">./scripts/install.sh</span>
 
 <span class="c"># 평소 운영</span>
-<span class="p">$</span> ./scripts/backup.sh --keep 14
-<span class="p">$</span> ./scripts/restore.sh backups/lms-backup-….tar
-<span class="p">$</span> ./scripts/update.sh</pre>
+<span class="p">$</span> <span class="cmd">./scripts/backup.sh --keep 14</span>
+<span class="p">$</span> <span class="cmd">./scripts/restore.sh backups/lms-backup-….tar</span>
+<span class="p">$</span> <span class="cmd">./scripts/update.sh</span><span class="caret" aria-hidden="true"></span></pre>
           </div>
-          <div class="modes">
-            <div><h3>교내망 IP 로 설치</h3><p>도메인 없이 서버 IP 로 엽니다. 사설 인증서로 HTTPS 를 쓰도록 구성합니다.</p></div>
-            <div><h3>도메인 + HTTPS 로 설치</h3><p>공인 도메인을 연결하면 프록시가 인증서를 받아 옵니다.</p></div>
-            <div><h3>백업은 파일 하나</h3><p>데이터베이스, 올린 파일, 설정, 인증서가 <code>tar</code> 한 묶음으로 나옵니다. 서비스를 멈추지 않고 받고, 새 서버로 옮길 때도 같은 묶음을 씁니다.</p></div>
-            <div><h3>설치 뒤에는 인터넷 없이</h3><p>설치할 때만 이미지와 패키지를 받습니다. 그 뒤로는 외부 연결 없이 동작합니다(도메인 설치의 인증서 갱신 제외).</p></div>
+          <div class="modes" data-stagger>
+            <div data-reveal><h3>교내망 IP 로 설치</h3><p>도메인 없이 서버 IP 로 엽니다. 사설 인증서로 HTTPS 를 쓰도록 구성합니다.</p></div>
+            <div data-reveal><h3>도메인 + HTTPS 로 설치</h3><p>공인 도메인을 연결하면 프록시가 인증서를 받아 옵니다.</p></div>
+            <div data-reveal><h3>백업은 파일 하나</h3><p>데이터베이스, 올린 파일, 설정, 인증서가 <code>tar</code> 한 묶음으로 나옵니다. 서비스를 멈추지 않고 받고, 새 서버로 옮길 때도 같은 묶음을 씁니다.</p></div>
+            <div data-reveal><h3>설치 뒤에는 인터넷 없이</h3><p>설치할 때만 이미지와 패키지를 받습니다. 그 뒤로는 외부 연결 없이 동작합니다(도메인 설치의 인증서 갱신 제외).</p></div>
           </div>
         </div>
       </div>
@@ -516,7 +557,7 @@
 
     <section class="chapter" id="spec">
       <div class="wrap">
-        <div class="chapter-head">
+        <div class="chapter-head" data-reveal>
           <div class="chapter-no"><b>05</b>서버 사양</div>
           <div>
             <h2>준비할 서버</h2>
@@ -524,10 +565,9 @@
           </div>
         </div>
         <div class="spec">
-          <div>
+          <div data-reveal>
             <table>
-              <caption>하드웨어</caption>
-              <thead><tr><th scope="col"></th><th scope="col">최소</th><th scope="col">권장</th></tr></thead>
+              <thead><tr><th scope="col">항목</th><th scope="col">최소</th><th scope="col">권장</th></tr></thead>
               <tbody>
                 <tr><th scope="row">CPU</th><td>4 코어</td><td>8 코어</td></tr>
                 <tr><th scope="row">메모리</th><td>8 GB</td><td>16 GB</td></tr>
@@ -536,49 +576,22 @@
                 <tr><th scope="row">소프트웨어</th><td colspan="2">Docker Engine 24 이상, Docker Compose 2.20 이상</td></tr>
               </tbody>
             </table>
-            <p class="note">실시간 수업은 영상·음성용 UDP 포트를 서버 방화벽과 학교 방화벽에서 열어야 합니다. 자세한 포트 목록은 설치 안내서에 있습니다.</p>
           </div>
-          <div>
-            <table>
-              <caption>함께 설치되는 소프트웨어</caption>
-              <thead><tr><th scope="col">구성</th><th scope="col">하는 일</th></tr></thead>
-              <tbody>
-                <tr><td>Appwrite</td><td>계정, 데이터베이스, 파일 저장</td></tr>
-                <tr><td>MariaDB · Redis</td><td>데이터베이스와 캐시</td></tr>
-                <tr><td>LiveKit</td><td>실시간 수업</td></tr>
-                <tr><td>Caddy</td><td>앞단 프록시, HTTPS 인증서</td></tr>
-              </tbody>
-            </table>
-            <p class="note">데이터베이스와 Appwrite 는 서버 안에서만 통신하고 밖으로 열리지 않습니다.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter" id="next">
-      <div class="wrap">
-        <div class="chapter-head">
-          <div class="chapter-no"><b>06</b>준비 중</div>
-          <div>
-            <h2>아직 없는 것</h2>
-            <p>아래 기능은 개발 중이며 현재 버전에는 들어 있지 않습니다.</p>
-          </div>
-        </div>
-        <div class="next">
-          <div><h3>평가</h3><p>퀴즈, 과제, 성적, 수료 처리</p></div>
-          <div><h3>학사 구조</h3><p>과목에 전공, 학기, 과목 코드를 붙여 관리</p></div>
-          <div><h3>출석·진도 검증</h3><p>브라우저가 보고한 값을 서버에서 확인</p></div>
+          <ul class="notes" data-stagger>
+            <li data-reveal><b>방화벽</b>실시간 수업은 영상·음성용 UDP 포트를 서버 방화벽과 학교 방화벽에서 열어야 합니다. 포트 목록은 설치 안내서에 있습니다.</li>
+            <li data-reveal><b>데이터 위치</b>데이터베이스와 파일 저장소는 서버 안에서만 통신하고 밖으로 열리지 않습니다.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <div class="ask-block" id="ask">
-      <div class="wrap">
+      <div class="wrap" data-reveal>
         <div>
           <h2>도입을 검토 중이신가요</h2>
           <p>학교 규모와 설치 환경을 알려 주시면 시연과 설치 안내서를 보내 드립니다.</p>
         </div>
-        <a class="btn" href="https://mint-soft.com">MintSoft 에 문의하기</a>
+        <a class="btn solid" href="https://mint-soft.com">MintSoft 에 문의하기 <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </main>
@@ -592,6 +605,8 @@
 
   <script>
     (function () {
+      var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
       function select(tab) {
         tabs.forEach(function (t) {
@@ -611,6 +626,61 @@
           next.focus();
         });
       });
+
+      var bar = document.querySelector(".progress");
+      var ticking = false;
+      function paint() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+        ticking = false;
+      }
+      window.addEventListener("scroll", function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+      }, { passive: true });
+      paint();
+
+      // 같은 묶음 안의 항목은 차례로 나타난다
+      document.querySelectorAll("[data-stagger]").forEach(function (group) {
+        Array.prototype.forEach.call(group.querySelectorAll("[data-reveal]"), function (el, i) {
+          el.style.setProperty("--d", i * 0.07 + "s");
+        });
+      });
+
+      function type(term) {
+        var cmds = Array.prototype.slice.call(term.querySelectorAll(".cmd"));
+        var texts = cmds.map(function (c) { return c.textContent; });
+        var caret = term.querySelector(".caret");
+        cmds.forEach(function (c) { c.textContent = ""; });
+        var line = 0, pos = 0;
+        (function tick() {
+          if (line >= cmds.length) return;
+          cmds[line].after(caret);
+          if (pos < texts[line].length) {
+            pos += 1;
+            cmds[line].textContent = texts[line].slice(0, pos);
+            setTimeout(tick, 26);
+          } else {
+            line += 1; pos = 0;
+            setTimeout(tick, 320);
+          }
+        })();
+      }
+
+      var targets = document.querySelectorAll("[data-reveal], [data-act]");
+      if (!("IntersectionObserver" in window)) {
+        targets.forEach(function (el) { el.classList.add("in"); });
+        return;
+      }
+      var seen = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          el.classList.add("in");
+          seen.unobserve(el);
+          if (el.hasAttribute("data-type") && !calm) setTimeout(function () { type(el); }, 500);
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+      targets.forEach(function (el) { seen.observe(el); });
     })();
   </script>
 </body>
