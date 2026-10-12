@@ -3,20 +3,270 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LMS — 학교 서버에 설치하는 학습 관리 시스템</title>
-  <meta name="description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 Docker 로 설치하는 LMS. 계정·출결·자료가 학교 서버에 저장됩니다.">
+  <title>LMS — 학교 서버에 설치하는 학습 관리 시스템 | MintSoft</title>
+  <meta name="description" content="학교 서버 한 대에 Docker 로 설치하는 설치형 LMS(학습 관리 시스템). 학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업, 출석·진도 관리를 제공하며 계정과 수업 자료가 학교 서버에 저장됩니다.">
+  <meta name="keywords" content="LMS, 학습 관리 시스템, 설치형 LMS, 학교 LMS, 대학 LMS, 온프레미스 LMS, 실시간 수업, 출석 관리, 진도 관리, MintSoft">
+  <meta name="author" content="MintSoft">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://lms.mint-soft.com/">
+  <link rel="alternate" hreflang="ko" href="https://lms.mint-soft.com/">
+  <link rel="alternate" hreflang="x-default" href="https://lms.mint-soft.com/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LMS by MintSoft">
+  <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://lms.mint-soft.com/">
   <meta property="og:title" content="LMS — 학교 서버에 설치하는 학습 관리 시스템">
-  <meta property="og:description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 설치합니다.">
-  <meta property="og:image" content="https://lms.mint-soft.com/assets/learner-home.png">
+  <meta property="og:description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 설치합니다. 계정과 수업 자료는 학교 서버에 저장됩니다.">
+  <meta property="og:image" content="https://lms.mint-soft.com/assets/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="LMS — 학교 서버 한 대에, 수업 전체를. 학습자 앱 화면과 함께.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LMS — 학교 서버에 설치하는 학습 관리 시스템">
+  <meta name="twitter:description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 설치합니다.">
+  <meta name="twitter:image" content="https://lms.mint-soft.com/assets/og.png">
+  <meta name="twitter:image:alt" content="LMS — 학교 서버 한 대에, 수업 전체를.">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="alternate" type="text/plain" title="LLM 용 요약" href="/llms.txt">
   <meta name="theme-color" content="#070b13">
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232557a3'/%3E%3Cpath d='M16 9 5 14l11 5 11-5-11-5Zm-6 9v4c0 1.5 2.7 3 6 3s6-1.5 6-3v-4' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mint-soft.com/#organization",
+        "name": "MintSoft",
+        "url": "https://mint-soft.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://lms.mint-soft.com/#website",
+        "url": "https://lms.mint-soft.com/",
+        "name": "LMS",
+        "description": "학교 서버 한 대에 Docker 로 설치하는 설치형 LMS(학습 관리 시스템). 학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업, 출석·진도 관리를 제공하며 계정과 수업 자료가 학교 서버에 저장됩니다.",
+        "inLanguage": "ko-KR",
+        "publisher": {
+          "@id": "https://mint-soft.com/#organization"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://lms.mint-soft.com/#webpage",
+        "url": "https://lms.mint-soft.com/",
+        "name": "LMS — 학교 서버에 설치하는 학습 관리 시스템 | MintSoft",
+        "description": "학교 서버 한 대에 Docker 로 설치하는 설치형 LMS(학습 관리 시스템). 학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업, 출석·진도 관리를 제공하며 계정과 수업 자료가 학교 서버에 저장됩니다.",
+        "inLanguage": "ko-KR",
+        "isPartOf": {
+          "@id": "https://lms.mint-soft.com/#website"
+        },
+        "about": {
+          "@id": "https://lms.mint-soft.com/#software"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://lms.mint-soft.com/assets/og.png",
+          "width": 1200,
+          "height": 630
+        },
+        "dateModified": "2026-10-12"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://lms.mint-soft.com/#software",
+        "name": "LMS",
+        "alternateName": "MintSoft LMS",
+        "description": "학교 서버 한 대에 Docker 로 설치하는 설치형 LMS(학습 관리 시스템). 학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업, 출석·진도 관리를 제공하며 계정과 수업 자료가 학교 서버에 저장됩니다.",
+        "url": "https://lms.mint-soft.com/",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Learning Management System",
+        "operatingSystem": "Linux (Docker)",
+        "softwareVersion": "0.2.0",
+        "inLanguage": "ko-KR",
+        "image": "https://lms.mint-soft.com/assets/og.png",
+        "screenshot": [
+          "https://lms.mint-soft.com/assets/learner-home.png",
+          "https://lms.mint-soft.com/assets/instructor-attendance.png",
+          "https://lms.mint-soft.com/assets/admin-members.png"
+        ],
+        "featureList": [
+          "실시간 수업(영상·음성·화면 공유·채팅)",
+          "문서·영상·3D 모델 학습 자료",
+          "교육과정과 진도 관리",
+          "출석부와 출석 통계",
+          "역할별 권한(운영자·교수자·외부 강사·학습자)",
+          "학과별 구성원 관리",
+          "백업·복원·업데이트 스크립트"
+        ],
+        "softwareRequirements": "Docker Engine 24 이상, Docker Compose 2.20 이상",
+        "memoryRequirements": "8 GB 이상",
+        "storageRequirements": "40 GB 이상",
+        "processorRequirements": "4 코어 이상",
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "administrator"
+        },
+        "publisher": {
+          "@id": "https://mint-soft.com/#organization"
+        },
+        "creator": {
+          "@id": "https://mint-soft.com/#organization"
+        }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://lms.mint-soft.com/#howto",
+        "name": "LMS 설치 후 첫 수업까지 진행하는 방법",
+        "description": "운영자가 학과와 계정을 만들고, 교수가 수업을 열고, 학생이 입장하기까지의 여덟 단계입니다.",
+        "inLanguage": "ko-KR",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "처음 로그인",
+            "text": "운영 콘솔을 열고 아이디 admin 과 설치할 때 정한 초기 비밀번호로 로그인한 뒤, 설정 화면에서 비밀번호를 바꿉니다.",
+            "url": "https://lms.mint-soft.com/#howto"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "학과 만들기",
+            "text": "운영 콘솔의 학과 화면에서 학과 추가를 눌러 교수와 학생이 속할 학과를 만듭니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/admin-departments.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "교수·학생 계정 만들기",
+            "text": "교수·학생 화면에서 구성원 추가로 계정을 만들고 역할과 학과를 정합니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/admin-members.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "교육과정과 수강 배정",
+            "text": "교육과정에서 과정과 학습 항목, 담당 교수를 정하고 수강 관리에서 과목별 수강생을 지정합니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/admin-courses.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "수업 개설",
+            "text": "교수 콘솔의 내 수업에서 수업 개설을 누르고, 학생 입장 링크를 복사해 학생에게 알립니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/instructor-lessons.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 6,
+            "name": "수업 입장",
+            "text": "학생은 학습자 앱의 수업 메뉴나 받은 링크로 수업방에 들어갑니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/learner-sessions.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 7,
+            "name": "과정 학습",
+            "text": "학생은 학습 과정에서 수강 중인 과정의 문서와 영상을 순서대로 학습합니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/learner-courses.png"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 8,
+            "name": "출석과 진도 확인",
+            "text": "교수는 출석 통계와 진도 현황에서 수업별 출석률과 학생별 진행 상황을 확인합니다.",
+            "url": "https://lms.mint-soft.com/#howto",
+            "image": "https://lms.mint-soft.com/assets/instructor-progress.png"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://lms.mint-soft.com/#faq",
+        "inLanguage": "ko-KR",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "LMS 는 어떤 제품인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "학교 서버 한 대에 설치해 쓰는 학습 관리 시스템입니다. 학습자 앱, 교수 콘솔, 운영 콘솔 세 화면과 실시간 수업 기능으로 구성되며 MintSoft 가 만듭니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "클라우드 서비스인가요, 설치형인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "설치형입니다. 학교가 보유한 Linux 서버에 Docker 로 설치하고, 계정과 출결, 수업 자료가 모두 그 서버에 저장됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "어떤 서버가 필요한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "최소 사양은 CPU 4코어, 메모리 8GB, 디스크 40GB 와 영상 용량입니다. 권장 사양은 CPU 8코어, 메모리 16GB, SSD 200GB 이상입니다. 운영체제는 Ubuntu 22.04 또는 24.04 LTS 를 권장하고 Docker Engine 24 이상과 Docker Compose 2.20 이상이 필요합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "도메인이 없어도 설치할 수 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네. 교내망 IP 주소만으로 설치할 수 있고, 이때는 사설 인증서로 HTTPS 를 구성합니다. 공인 도메인이 있으면 프록시가 인증서를 받아 옵니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "설치한 뒤에도 인터넷 연결이 필요한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "설치할 때만 이미지와 패키지를 받기 위해 인터넷이 필요합니다. 그 뒤로는 외부 연결 없이 동작합니다. 도메인으로 설치한 경우의 인증서 갱신만 예외입니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "백업과 서버 이전은 어떻게 하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "백업 스크립트를 실행하면 데이터베이스, 올린 파일, 설정, 인증서가 tar 파일 하나로 나옵니다. 서비스를 멈추지 않고 받을 수 있고, 복원 스크립트로 같은 서버나 새 서버에 되돌립니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "실시간 수업에서는 무엇을 할 수 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "영상, 음성, 화면 공유와 채팅으로 수업을 진행합니다. 수업에 입장 비밀번호를 걸 수 있고 3D 자료를 수업방에 띄워 함께 볼 수 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "사용자 역할은 어떻게 나뉘나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "운영자, 교수자, 외부 강사, 학습자 네 역할입니다. 운영자는 운영 콘솔, 교수자와 외부 강사는 교수 콘솔, 학습자는 학습자 앱을 씁니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script>document.documentElement.classList.add("js");</script>
   <style>
     :root {
@@ -206,6 +456,21 @@
     .notes b { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
     @media (max-width: 860px) { .spec { grid-template-columns: 1fr; } }
 
+    /* 자주 묻는 질문 */
+    .faq { border-top: 1px solid var(--line-strong); }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary { display: grid; grid-template-columns: 56px minmax(0, 1fr) 24px; gap: 20px; align-items: baseline; padding: 22px 0; cursor: pointer; list-style: none; transition: color 0.2s; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { color: var(--accent); }
+    .faq .n { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+    .faq h3 { font-family: var(--display); font-size: clamp(18px, 2vw, 22px); margin: 0; }
+    .faq .mark { position: relative; width: 14px; height: 14px; align-self: center; }
+    .faq .mark::before, .faq .mark::after { content: ""; position: absolute; left: 0; top: 6px; width: 14px; height: 1px; background: var(--accent); transition: transform 0.35s var(--ease); }
+    .faq .mark::after { transform: rotate(90deg); }
+    .faq details[open] .mark::after { transform: rotate(0deg); }
+    .faq p { margin: 0; padding: 0 44px 24px 76px; color: var(--soft); font-size: 16px; max-width: 52em; }
+    @media (max-width: 720px) { .faq summary { grid-template-columns: 30px minmax(0, 1fr) 20px; gap: 10px; } .faq p { padding: 0 0 22px 40px; } }
+
     /* 문의 */
     .ask-block { position: relative; border-top: 1px solid var(--line); padding: clamp(64px, 9vw, 120px) 0; overflow: hidden; }
     .ask-block::before { content: ""; position: absolute; left: 50%; bottom: -520px; width: 1100px; height: 760px; margin-left: -550px; border-radius: 50%; background: radial-gradient(closest-side, rgba(53, 112, 205, 0.42), transparent); pointer-events: none; }
@@ -245,6 +510,8 @@
       .panel:not([hidden]) > *:last-child { animation-delay: 0.08s; }
       @keyframes swap { from { opacity: 0; transform: translateY(14px); } }
 
+      .faq details[open] p { animation: swap 0.45s var(--ease) backwards; }
+
       .term .caret { animation: blink 1s steps(1) infinite; }
       @keyframes blink { 50% { opacity: 0; } }
     }
@@ -262,6 +529,7 @@
         <a href="#features">기능</a>
         <a href="#install">설치</a>
         <a href="#spec">서버 사양</a>
+        <a href="#faq">FAQ</a>
         <a class="ask" href="#ask">도입 문의</a>
       </nav>
     </div>
@@ -279,7 +547,7 @@
         </h1>
         <div class="hero-foot">
           <div class="rise" style="--d: 0.5s">
-            <p class="lede">학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 Docker 로 한 번에 설치합니다. 계정과 출결, 수업 자료는 모두 학교 서버에 저장됩니다.</p>
+            <p class="lede">LMS 는 학교 서버에 직접 설치하는 학습 관리 시스템입니다. 학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 Docker 로 한 번에 설치합니다. 계정과 출결, 수업 자료는 모두 학교 서버에 저장됩니다.</p>
             <div class="actions">
               <a class="btn solid" href="#ask">도입 문의 <span class="arrow" aria-hidden="true">→</span></a>
               <a class="btn line" href="#howto">사용법 보기</a>
@@ -585,13 +853,59 @@
       </div>
     </section>
 
+    <section class="chapter" id="faq">
+      <div class="wrap">
+        <div class="chapter-head" data-reveal>
+          <div class="chapter-no"><b>06</b>자주 묻는 질문</div>
+          <div>
+            <h2>도입 전에 많이 묻는 것</h2>
+            <p>설치 방식, 서버, 운영에 관한 질문을 모았습니다.</p>
+          </div>
+        </div>
+        <div class="faq" data-stagger>
+          <details data-reveal open>
+            <summary><span class="n">Q1</span><h3>LMS 는 어떤 제품인가요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>학교 서버 한 대에 설치해 쓰는 학습 관리 시스템입니다. 학습자 앱, 교수 콘솔, 운영 콘솔 세 화면과 실시간 수업 기능으로 구성되며 MintSoft 가 만듭니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q2</span><h3>클라우드 서비스인가요, 설치형인가요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>설치형입니다. 학교가 보유한 Linux 서버에 Docker 로 설치하고, 계정과 출결, 수업 자료가 모두 그 서버에 저장됩니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q3</span><h3>어떤 서버가 필요한가요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>최소 사양은 CPU 4코어, 메모리 8GB, 디스크 40GB 와 영상 용량입니다. 권장 사양은 CPU 8코어, 메모리 16GB, SSD 200GB 이상입니다. 운영체제는 Ubuntu 22.04 또는 24.04 LTS 를 권장하고 Docker Engine 24 이상과 Docker Compose 2.20 이상이 필요합니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q4</span><h3>도메인이 없어도 설치할 수 있나요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>네. 교내망 IP 주소만으로 설치할 수 있고, 이때는 사설 인증서로 HTTPS 를 구성합니다. 공인 도메인이 있으면 프록시가 인증서를 받아 옵니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q5</span><h3>설치한 뒤에도 인터넷 연결이 필요한가요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>설치할 때만 이미지와 패키지를 받기 위해 인터넷이 필요합니다. 그 뒤로는 외부 연결 없이 동작합니다. 도메인으로 설치한 경우의 인증서 갱신만 예외입니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q6</span><h3>백업과 서버 이전은 어떻게 하나요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>백업 스크립트를 실행하면 데이터베이스, 올린 파일, 설정, 인증서가 tar 파일 하나로 나옵니다. 서비스를 멈추지 않고 받을 수 있고, 복원 스크립트로 같은 서버나 새 서버에 되돌립니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q7</span><h3>실시간 수업에서는 무엇을 할 수 있나요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>영상, 음성, 화면 공유와 채팅으로 수업을 진행합니다. 수업에 입장 비밀번호를 걸 수 있고 3D 자료를 수업방에 띄워 함께 볼 수 있습니다.</p>
+          </details>
+          <details data-reveal>
+            <summary><span class="n">Q8</span><h3>사용자 역할은 어떻게 나뉘나요?</h3><span class="mark" aria-hidden="true"></span></summary>
+            <p>운영자, 교수자, 외부 강사, 학습자 네 역할입니다. 운영자는 운영 콘솔, 교수자와 외부 강사는 교수 콘솔, 학습자는 학습자 앱을 씁니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <div class="ask-block" id="ask">
       <div class="wrap" data-reveal>
         <div>
           <h2>도입을 검토 중이신가요</h2>
           <p>학교 규모와 설치 환경을 알려 주시면 시연과 설치 안내서를 보내 드립니다.</p>
         </div>
-        <a class="btn solid" href="https://mint-soft.com">MintSoft 에 문의하기 <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn solid" href="https://www.mint-soft.com/contact/">MintSoft 에 문의하기 <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </main>

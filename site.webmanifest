@@ -1,0 +1,21 @@
+{
+  "name": "LMS — 학교 서버에 설치하는 학습 관리 시스템",
+  "short_name": "LMS",
+  "lang": "ko",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#070b13",
+  "theme_color": "#070b13",
+  "icons": [
+    {
+      "src": "assets/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
