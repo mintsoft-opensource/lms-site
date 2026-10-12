@@ -98,6 +98,7 @@
     .hero-shot .shot { box-shadow: none; border-bottom: 0; }
 
     /* 장(章) */
+    [id] { scroll-margin-top: 60px; }
     section.chapter { border-top: 1px solid var(--ink); padding: clamp(56px, 8vw, 104px) 0; }
     .chapter-head { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: clamp(16px, 4vw, 48px); margin-bottom: clamp(32px, 5vw, 56px); }
     .chapter-no { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-faint); padding-top: 14px; }
@@ -119,8 +120,28 @@
     .panel li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--rule); position: relative; font-size: 15.5px; }
     .panel li::before { content: "○"; position: absolute; left: 2px; top: 10px; color: var(--navy); font-size: 13px; }
     .pair { display: grid; gap: 22px; }
-    .pair .shot + .shot { margin-left: clamp(0px, 6vw, 72px); }
     @media (max-width: 860px) { .panel { grid-template-columns: 1fr; } }
+
+    /* 사용법 */
+    .act { display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; margin: clamp(48px, 7vw, 80px) 0 0; }
+    .act:first-of-type { margin-top: 0; }
+    .act h3 { font-family: var(--display); font-size: clamp(22px, 2.6vw, 30px); margin: 0; }
+    .act span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-faint); }
+    .steps { list-style: none; margin: 0; padding: 0; }
+    .step { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; padding: clamp(28px, 4vw, 44px) 0; border-bottom: 1px solid var(--rule); }
+    .step-no { font-family: var(--display); font-size: 40px; line-height: 1; color: var(--navy); }
+    .step h4 { font-family: var(--display); font-size: 23px; margin: 10px 0 8px; }
+    .step p { margin: 0 0 10px; color: var(--ink-soft); font-size: 16px; }
+    .step p:last-child { margin-bottom: 0; }
+    .step b { color: var(--ink); font-weight: 600; }
+    .step code { font-family: var(--mono); font-size: 0.88em; background: var(--paper-deep); padding: 1px 5px; }
+    .step .pair { gap: 26px; }
+    .shot img.crop { width: 100%; object-fit: cover; object-position: top; }
+    .addr { margin: 0; border-top: 1px solid var(--ink); font-size: 15px; }
+    .addr div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    .addr dt { color: var(--ink-soft); }
+    .addr dd { margin: 0; font-family: var(--mono); font-size: 13.5px; }
+    @media (max-width: 860px) { .step { grid-template-columns: 1fr; } }
 
     /* 기능 대장 */
     .ledger { border-top: 2px solid var(--ink); }
@@ -189,6 +210,7 @@
       <a class="brand" href="#top" aria-label="LMS 처음으로"><b>LMS</b><span>MINTSOFT</span></a>
       <nav aria-label="주요 메뉴">
         <a href="#screens">화면</a>
+        <a href="#howto">사용법</a>
         <a href="#features">기능</a>
         <a href="#install">설치</a>
         <a href="#spec">서버 사양</a>
@@ -277,10 +299,6 @@
               <div class="shot-bar"><i></i><i></i><i></i>출석 통계</div>
               <img src="assets/instructor-attendance.png" width="1280" height="844" loading="lazy" alt="출석 통계 화면. 수업별 출석률과 학생별 출석·결석·체류 시간 표가 보인다.">
             </div>
-            <div class="shot">
-              <div class="shot-bar"><i></i><i></i><i></i>내 수업</div>
-              <img src="assets/instructor-lessons.png" width="1280" height="844" loading="lazy" alt="내 수업 화면. 예정·종료 수업 목록과 입장, 출석부 버튼이 보인다.">
-            </div>
           </div>
         </div>
 
@@ -297,10 +315,6 @@
           </div>
           <div class="pair">
             <div class="shot">
-              <div class="shot-bar"><i></i><i></i><i></i>교수·학생</div>
-              <img src="assets/admin-members.png" width="1280" height="844" loading="lazy" alt="교수·학생 관리 화면. 이름, 아이디, 학번, 역할, 학과, 상태가 표로 보인다.">
-            </div>
-            <div class="shot">
               <div class="shot-bar"><i></i><i></i><i></i>현황</div>
               <img src="assets/admin-home.png" width="1280" height="844" loading="lazy" alt="운영 콘솔 현황 화면. 구성원 수, 평균 진도, 자료 수가 타일로 보인다.">
             </div>
@@ -309,10 +323,149 @@
       </div>
     </section>
 
+    <section class="chapter" id="howto">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>02</b>사용법</div>
+          <div>
+            <h2>설치한 날부터<br>첫 수업까지</h2>
+            <p>운영자가 학교 구조와 계정을 만들고, 교수가 수업을 열고, 학생이 들어옵니다. 여덟 단계입니다.</p>
+          </div>
+        </div>
+
+        <div class="act"><h3>운영자가 준비합니다</h3><span>운영 콘솔</span></div>
+        <ol class="steps">
+          <li class="step">
+            <div>
+              <div class="step-no">1</div>
+              <h4>처음 로그인</h4>
+              <p>운영 콘솔을 열고 아이디 <code>admin</code> 으로 로그인합니다. 초기 비밀번호는 설치할 때 <code>.env</code> 에 적은 값입니다.</p><p>들어간 뒤 <b>설정</b> 화면에서 비밀번호를 먼저 바꿉니다.</p><p>IP 로 설치했을 때의 기본 주소는 다음과 같습니다. 포트는 바꿀 수 있습니다.</p>
+            </div>
+            <dl class="addr">
+              <div><dt>운영 콘솔</dt><dd>https://서버IP:8082</dd></div>
+              <div><dt>교수 콘솔</dt><dd>https://서버IP:8081</dd></div>
+              <div><dt>학습자 앱</dt><dd>https://서버IP:8080</dd></div>
+            </dl>
+          </li>
+          <li class="step">
+            <div>
+              <div class="step-no">2</div>
+              <h4>학과 만들기</h4>
+              <p><b>학과</b> 화면에서 <b>학과 추가</b>를 누릅니다. 학과는 교수와 학생이 속하는 단위이고, 뒤의 모든 목록을 학과별로 거를 때 씁니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 학과</div>
+                <img class="crop" style="aspect-ratio: 1280 / 400" src="assets/admin-departments.png" width="1280" height="844" loading="lazy" alt="학과 화면. 컴퓨터공학과, 경영학과, 간호학과가 목록에 있고 학과 추가 버튼이 보인다.">
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div>
+              <div class="step-no">3</div>
+              <h4>교수·학생 계정 만들기</h4>
+              <p><b>교수·학생</b> 화면에서 <b>구성원 추가</b>로 계정을 만들고 역할과 학과를 정합니다.</p><p>역할을 바꾸면 들어갈 수 있는 앱도 바로 바뀝니다. 교수자와 외부 강사는 교수 콘솔로, 학습자는 학습자 앱으로 로그인합니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 교수·학생</div>
+                <img src="assets/admin-members.png" width="1280" height="844" loading="lazy" alt="교수·학생 관리 화면. 이름, 아이디, 학번, 역할, 학과, 상태가 표로 보이고 구성원 추가 버튼이 있다.">
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div>
+              <div class="step-no">4</div>
+              <h4>교육과정과 수강 배정</h4>
+              <p><b>교육과정</b>에서 과정을 추가하고 학습 항목(문서·영상)과 담당 교수를 정합니다. 등록하면 학습자 앱의 과정 목록에 바로 나타납니다.</p><p><b>수강 관리</b>에서 과목을 고르고 그 과목을 듣는 학생을 지정합니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 교육과정</div>
+                <img class="crop" style="aspect-ratio: 1280 / 600" src="assets/admin-courses.png" width="1280" height="844" loading="lazy" alt="교육과정 화면. 과정 여섯 개가 분류, 항목 수, 시간, 담당 교수와 함께 목록으로 보인다.">
+              </div>
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>운영 콘솔 — 수강 관리</div>
+                <img class="crop" style="aspect-ratio: 1280 / 400" src="assets/admin-enrollments.png" width="1280" height="844" loading="lazy" alt="수강 관리 화면. 과목과 학과를 고르고 학생을 검색하는 입력이 보인다.">
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="act"><h3>교수가 수업을 엽니다</h3><span>교수 콘솔</span></div>
+        <ol class="steps">
+          <li class="step">
+            <div>
+              <div class="step-no">5</div>
+              <h4>수업 개설</h4>
+              <p><b>내 수업</b>에서 <b>수업 개설</b>을 눌러 과목과 시작 시각을 정합니다.</p><p>만든 수업 옆의 <b>학생 입장 링크 복사</b>로 주소를 받아 학생에게 알리고, 시간이 되면 <b>입장</b>을 눌러 수업방으로 들어갑니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 내 수업</div>
+                <img class="crop" style="aspect-ratio: 1280 / 480" src="assets/instructor-lessons.png" width="1280" height="844" loading="lazy" alt="내 수업 화면. 예정·종료 수업 목록과 학생 입장 링크 복사, 입장, 출석부 버튼이 보인다.">
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="act"><h3>학생이 들어옵니다</h3><span>학습자 앱</span></div>
+        <ol class="steps">
+          <li class="step">
+            <div>
+              <div class="step-no">6</div>
+              <h4>수업 입장</h4>
+              <p>학습자 앱의 <b>수업</b> 메뉴에 내가 듣는 수업이 예정·종료로 나뉘어 보입니다. 받은 링크나 이 목록에서 수업방으로 들어갑니다.</p><p>수업방에서는 교수의 카메라와 화면 공유, 3D 자료를 보고 채팅으로 대화합니다. 대화는 서버에 남아 다시 들어와도 이어서 보입니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 수업</div>
+                <img src="assets/learner-sessions.png" width="1280" height="844" loading="lazy" alt="수업 목록 화면. 예정 수업 하나와 종료된 수업 셋이 카드로 보인다.">
+              </div>
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 수업방</div>
+                <img src="assets/learner-live.png" width="1280" height="844" loading="lazy" alt="수업방 화면. 왼쪽에 3D 모델·화면 공유 영역, 오른쪽에 카메라, 참여자 두 명, 채팅이 보인다.">
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div>
+              <div class="step-no">7</div>
+              <h4>과정 학습</h4>
+              <p><b>학습 과정</b>에서 수강 중인 과정의 문서와 영상을 순서대로 엽니다. 마친 항목에는 표시가 붙고 과정별 진도 막대가 채워집니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 학습 과정</div>
+                <img src="assets/learner-courses.png" width="1280" height="844" loading="lazy" alt="학습 과정 화면. 과정마다 학습 항목과 진도 막대가 표시된다.">
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="act"><h3>교수가 결과를 봅니다</h3><span>교수 콘솔</span></div>
+        <ol class="steps">
+          <li class="step">
+            <div>
+              <div class="step-no">8</div>
+              <h4>출석과 진도 확인</h4>
+              <p><b>출석 통계</b>에서 수업별 출석률과 학생별 결석을 보고, 수업마다 <b>출석부</b>를 엽니다.</p><p><b>진도 현황</b>은 과목 수강생의 진도 분포와 학생별 진행 상황을 보여 주며 CSV 로 내려받을 수 있습니다.</p>
+            </div>
+            <div class="pair">
+              <div class="shot">
+                <div class="shot-bar"><i></i><i></i><i></i>교수 콘솔 — 진도 현황</div>
+                <img src="assets/instructor-progress.png" width="1280" height="844" loading="lazy" alt="진도 현황 화면. 평균 진도 타일, 진도 분포 막대그래프, 학생별 진도 표와 CSV 내려받기 버튼이 보인다.">
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <section class="chapter" id="features">
       <div class="wrap">
         <div class="chapter-head">
-          <div class="chapter-no"><b>02</b>기능</div>
+          <div class="chapter-no"><b>03</b>기능</div>
           <div>
             <h2>지금 들어 있는 것</h2>
             <p>현재 버전(v0.2.0)에 구현된 기능입니다.</p>
@@ -332,7 +485,7 @@
     <section class="chapter" id="install">
       <div class="wrap">
         <div class="chapter-head">
-          <div class="chapter-no"><b>03</b>설치와 운영</div>
+          <div class="chapter-no"><b>04</b>설치와 운영</div>
           <div>
             <h2>설정 파일 하나, 명령 한 번</h2>
             <p>설정과 비밀값은 <code style="font-family: var(--mono); font-size: 0.88em">.env</code> 한 파일에 모입니다. 설치 스크립트는 여러 번 돌려도 기존 계정과 데이터를 건드리지 않습니다.</p>
@@ -364,7 +517,7 @@
     <section class="chapter" id="spec">
       <div class="wrap">
         <div class="chapter-head">
-          <div class="chapter-no"><b>04</b>서버 사양</div>
+          <div class="chapter-no"><b>05</b>서버 사양</div>
           <div>
             <h2>준비할 서버</h2>
             <p>Docker 가 도는 64비트 Linux 서버 한 대면 됩니다.</p>
@@ -405,7 +558,7 @@
     <section class="chapter" id="next">
       <div class="wrap">
         <div class="chapter-head">
-          <div class="chapter-no"><b>05</b>준비 중</div>
+          <div class="chapter-no"><b>06</b>준비 중</div>
           <div>
             <h2>아직 없는 것</h2>
             <p>아래 기능은 개발 중이며 현재 버전에는 들어 있지 않습니다.</p>
