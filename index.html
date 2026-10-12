@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LMS — 학교 서버에 설치하는 학습 관리 시스템</title>
+  <meta name="description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 Docker 로 설치하는 LMS. 계정·출결·자료가 학교 서버에 저장됩니다.">
+  <link rel="canonical" href="https://lms.mint-soft.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lms.mint-soft.com/">
+  <meta property="og:title" content="LMS — 학교 서버에 설치하는 학습 관리 시스템">
+  <meta property="og:description" content="학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 학교 서버 한 대에 설치합니다.">
+  <meta property="og:image" content="https://lms.mint-soft.com/assets/learner-home.png">
+  <meta name="theme-color" content="#f2eee4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232557a3'/%3E%3Cpath d='M16 9 5 14l11 5 11-5-11-5Zm-6 9v4c0 1.5 2.7 3 6 3s6-1.5 6-3v-4' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2eee4;
+      --paper-deep: #e8e2d4;
+      --sheet: #fbf9f4;
+      --ink: #131c2e;
+      --ink-soft: #46506a;
+      --ink-faint: #7d8496;
+      --rule: #cdc5b3;
+      --navy: #2557a3;
+      --navy-deep: #1a3a66;
+      --stamp: #b93a1b;
+      --display: "Gowun Batang", "Nanum Myeongjo", serif;
+      --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+      --gutter: clamp(20px, 5vw, 56px);
+      --line: 32px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.75;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 20; background: var(--ink); color: var(--paper); padding: 8px 14px; }
+
+    /* 머리글 */
+    .masthead { border-bottom: 1px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 10; }
+    .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 60px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+    .brand b { font-family: var(--display); font-size: 22px; letter-spacing: 0.04em; }
+    .brand span { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.08em; }
+    .masthead nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px); font-size: 14px; }
+    .masthead nav a { text-decoration: none; color: var(--ink-soft); }
+    .masthead nav a:hover { color: var(--ink); }
+    .masthead nav a.ask { color: var(--paper); background: var(--ink); padding: 7px 16px; }
+    .masthead nav a.ask:hover { background: var(--navy-deep); color: #fff; }
+    @media (max-width: 720px) { .masthead nav a:not(.ask) { display: none; } }
+
+    /* 첫 화면 */
+    .hero { position: relative; padding: clamp(48px, 9vw, 104px) 0 0; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--line) - 1px), color-mix(in srgb, var(--rule) 55%, transparent) calc(var(--line) - 1px), color-mix(in srgb, var(--rule) 55%, transparent) var(--line));
+      mask-image: linear-gradient(to bottom, #000 0, #000 55%, transparent 92%);
+    }
+    .hero .wrap { position: relative; }
+    .kicker { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 28px; }
+    .seal { display: inline-block; border: 1.5px solid var(--stamp); color: var(--stamp); padding: 2px 9px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; transform: rotate(-3deg); }
+    h1 { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 7.6vw, 98px); line-height: 1.14; letter-spacing: -0.02em; margin: 0; }
+    h1 em { font-style: normal; color: var(--navy); }
+    .hero-foot { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(24px, 5vw, 72px); align-items: end; margin-top: clamp(28px, 4vw, 48px); }
+    .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); margin: 0; max-width: 34em; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; font-size: 15px; font-weight: 600; text-decoration: none; border: 1px solid var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .btn.solid { background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--navy); }
+    .btn.line { background: transparent; color: var(--ink); }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--navy); }
+    .facts { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); font-size: 14px; }
+    .facts li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+    .facts span { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; padding-top: 2px; }
+    @media (max-width: 860px) { .hero-foot { grid-template-columns: 1fr; } }
+
+    .shot { border: 1px solid var(--ink); background: var(--sheet); box-shadow: 10px 10px 0 var(--paper-deep), 10px 10px 0 1px var(--ink); }
+    .shot-bar { display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
+    .shot-bar i { width: 8px; height: 8px; border: 1px solid var(--ink); border-radius: 50%; }
+    .hero-shot { margin-top: clamp(40px, 6vw, 72px); margin-bottom: -1px; }
+    .hero-shot .shot { box-shadow: none; border-bottom: 0; }
+
+    /* 장(章) */
+    section.chapter { border-top: 1px solid var(--ink); padding: clamp(56px, 8vw, 104px) 0; }
+    .chapter-head { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: clamp(16px, 4vw, 48px); margin-bottom: clamp(32px, 5vw, 56px); }
+    .chapter-no { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-faint); padding-top: 14px; }
+    .chapter-no b { display: block; font-family: var(--display); font-size: 44px; line-height: 1; color: var(--ink); letter-spacing: 0; margin-bottom: 8px; }
+    h2 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 4vw, 46px); line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 14px; }
+    .chapter-head p { margin: 0; color: var(--ink-soft); max-width: 38em; }
+    @media (max-width: 720px) { .chapter-head { grid-template-columns: 1fr; } .chapter-no { padding-top: 0; } .chapter-no b { display: inline; font-size: 28px; margin-right: 10px; } }
+
+    /* 세 화면 */
+    .tabs { display: flex; border: 1px solid var(--ink); width: fit-content; max-width: 100%; }
+    .tabs button { font: inherit; font-size: 15px; font-weight: 500; background: transparent; color: var(--ink-soft); border: 0; border-right: 1px solid var(--ink); padding: 11px clamp(14px, 2.6vw, 26px); cursor: pointer; }
+    .tabs button:last-child { border-right: 0; }
+    .tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+    .panel { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin-top: 32px; }
+    .panel[hidden] { display: none; }
+    .panel h3 { font-family: var(--display); font-size: 26px; margin: 0 0 6px; }
+    .panel .who { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.06em; margin: 0 0 18px; }
+    .panel ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+    .panel li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--rule); position: relative; font-size: 15.5px; }
+    .panel li::before { content: "○"; position: absolute; left: 2px; top: 10px; color: var(--navy); font-size: 13px; }
+    .pair { display: grid; gap: 22px; }
+    .pair .shot + .shot { margin-left: clamp(0px, 6vw, 72px); }
+    @media (max-width: 860px) { .panel { grid-template-columns: 1fr; } }
+
+    /* 기능 대장 */
+    .ledger { border-top: 2px solid var(--ink); }
+    .ledger > div { display: grid; grid-template-columns: 56px 220px minmax(0, 1fr); gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+    .ledger .n { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+    .ledger h3 { font-family: var(--display); font-size: 22px; margin: 0; }
+    .ledger p { margin: 0; color: var(--ink-soft); font-size: 16px; }
+    @media (max-width: 720px) { .ledger > div { grid-template-columns: 36px 1fr; } .ledger p { grid-column: 2; } }
+
+    /* 설치 */
+    .install { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .term { background: var(--ink); color: #dfe5f1; font-family: var(--mono); font-size: 14px; line-height: 1.9; padding: 22px 24px 26px; box-shadow: 10px 10px 0 var(--navy); overflow-x: auto; }
+    .term .c { color: #7f8aa3; }
+    .term .p { color: #86afe1; user-select: none; }
+    .term .ok { color: #9fd3a8; }
+    .term pre { margin: 0; font: inherit; white-space: pre; }
+    .modes { display: grid; gap: 0; border-top: 1px solid var(--ink); }
+    .modes > div { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+    .modes h3 { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+    .modes p { margin: 0; font-size: 15.5px; color: var(--ink-soft); }
+    .modes code, .ledger code, .spec code { font-family: var(--mono); font-size: 0.88em; background: var(--paper-deep); padding: 1px 5px; }
+    @media (max-width: 860px) { .install { grid-template-columns: 1fr; } }
+
+    /* 사양 */
+    .spec { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(24px, 4vw, 56px); }
+    table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+    caption { text-align: left; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-faint); padding-bottom: 10px; }
+    th, td { text-align: left; padding: 11px 12px 11px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    thead th { border-bottom: 2px solid var(--ink); font-weight: 600; font-size: 13.5px; }
+    tbody th { font-weight: 500; color: var(--ink-soft); width: 6.5em; }
+    .note { font-size: 14px; color: var(--ink-faint); margin: 14px 0 0; }
+    @media (max-width: 860px) { .spec { grid-template-columns: 1fr; } }
+
+    /* 준비 중 */
+    .next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px dashed var(--ink-soft); }
+    .next > div { padding: 22px 24px; border-right: 1px dashed var(--ink-soft); }
+    .next > div:last-child { border-right: 0; }
+    .next h3 { font-family: var(--display); font-size: 20px; margin: 0 0 6px; }
+    .next p { margin: 0; font-size: 15px; color: var(--ink-soft); }
+    @media (max-width: 720px) { .next { grid-template-columns: 1fr; } .next > div { border-right: 0; border-bottom: 1px dashed var(--ink-soft); } .next > div:last-child { border-bottom: 0; } }
+
+    /* 문의 */
+    .ask-block { background: var(--ink); color: var(--paper); border-top: 1px solid var(--ink); padding: clamp(56px, 8vw, 96px) 0; }
+    .ask-block .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; }
+    .ask-block h2 { color: var(--paper); margin: 0 0 12px; }
+    .ask-block p { margin: 0; color: #b9c1d3; max-width: 34em; }
+    .ask-block .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); box-shadow: 4px 4px 0 var(--navy); }
+    @media (max-width: 720px) { .ask-block .wrap { grid-template-columns: 1fr; } }
+
+    footer { background: var(--ink); color: #8f98ad; border-top: 1px solid #2c3750; font-size: 13px; padding: 22px 0 30px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    footer a { color: #b9c1d3; }
+
+    /* 등장 */
+    @media (prefers-reduced-motion: no-preference) {
+      .rise { opacity: 0; transform: translateY(18px); animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+      @keyframes rise { to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="LMS 처음으로"><b>LMS</b><span>MINTSOFT</span></a>
+      <nav aria-label="주요 메뉴">
+        <a href="#screens">화면</a>
+        <a href="#features">기능</a>
+        <a href="#install">설치</a>
+        <a href="#spec">서버 사양</a>
+        <a class="ask" href="#ask">도입 문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="hero" id="top">
+      <div class="wrap">
+        <p class="kicker rise"><span class="seal">설치형</span>학교용 학습 관리 시스템</p>
+        <h1 class="rise" style="--d: 0.08s">학교 서버 한 대에,<br><em>수업 전체</em>를.</h1>
+        <div class="hero-foot">
+          <div class="rise" style="--d: 0.18s">
+            <p class="lede">학습자 앱, 교수 콘솔, 운영 콘솔과 실시간 수업을 Docker 로 한 번에 설치합니다. 계정과 출결, 수업 자료는 모두 학교 서버에 저장됩니다.</p>
+            <div class="actions">
+              <a class="btn solid" href="#ask">도입 문의</a>
+              <a class="btn line" href="#screens">화면 보기</a>
+            </div>
+          </div>
+          <ul class="facts rise" style="--d: 0.28s">
+            <li><span>구성</span>학습자 앱 · 교수 콘솔 · 운영 콘솔</li>
+            <li><span>설치</span>명령 한 번, 다시 돌려도 안전</li>
+            <li><span>접속</span>교내망 IP 또는 도메인 HTTPS</li>
+            <li><span>운영</span>백업 · 복원 · 업데이트 스크립트 포함</li>
+          </ul>
+        </div>
+        <div class="hero-shot rise" style="--d: 0.38s">
+          <div class="shot">
+            <div class="shot-bar"><i></i><i></i><i></i>학습자 앱 — 메인화면</div>
+            <img src="assets/learner-home.png" width="1280" height="844" alt="학습자 앱 메인화면. 학습 진행 현황 50%, 학습 과정·문서자료·영상자료·수업 바로가기, 공지사항이 보인다.">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="chapter" id="screens">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>01</b>세 개의 화면</div>
+          <div>
+            <h2>학생, 교수, 운영자가<br>각자의 화면으로 들어옵니다</h2>
+            <p>세 앱은 주소가 따로 있고 역할에 따라 들어갈 수 있는 곳이 정해집니다. 아래 화면은 시연용 데이터로 찍은 실제 제품입니다.</p>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="화면 선택">
+          <button role="tab" id="tab-learner" aria-controls="panel-learner" aria-selected="true">학습자 앱</button>
+          <button role="tab" id="tab-instructor" aria-controls="panel-instructor" aria-selected="false" tabindex="-1">교수 콘솔</button>
+          <button role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1">운영 콘솔</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-learner" aria-labelledby="tab-learner">
+          <div>
+            <h3>학습자 앱</h3>
+            <p class="who">학생</p>
+            <ul>
+              <li>수강 중인 과정의 문서와 영상을 순서대로 학습</li>
+              <li>과정별 진도와 남은 항목 확인</li>
+              <li>실시간 수업 입장과 수업 스케줄</li>
+              <li>공지사항</li>
+            </ul>
+          </div>
+          <div class="pair">
+            <div class="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>학습 과정</div>
+              <img src="assets/learner-courses.png" width="1280" height="844" loading="lazy" alt="학습 과정 화면. 과정마다 학습 항목과 진도 막대가 표시된다.">
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-instructor" aria-labelledby="tab-instructor" hidden>
+          <div>
+            <h3>교수 콘솔</h3>
+            <p class="who">교수자 · 외부 강사</p>
+            <ul>
+              <li>수업 개설과 진행, 학생 입장 링크</li>
+              <li>수업별 출석부와 학생별 출석 통계</li>
+              <li>과목별 진도 현황과 수강 명단</li>
+              <li>교육과정, 문서, 영상, 3D 자료 관리</li>
+            </ul>
+          </div>
+          <div class="pair">
+            <div class="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>출석 통계</div>
+              <img src="assets/instructor-attendance.png" width="1280" height="844" loading="lazy" alt="출석 통계 화면. 수업별 출석률과 학생별 출석·결석·체류 시간 표가 보인다.">
+            </div>
+            <div class="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>내 수업</div>
+              <img src="assets/instructor-lessons.png" width="1280" height="844" loading="lazy" alt="내 수업 화면. 예정·종료 수업 목록과 입장, 출석부 버튼이 보인다.">
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
+          <div>
+            <h3>운영 콘솔</h3>
+            <p class="who">학사 · 전산 담당자</p>
+            <ul>
+              <li>학과와 교수·학생 계정, 역할 관리</li>
+              <li>과목별 수강 배정</li>
+              <li>전체 수업 운영과 진도 현황</li>
+              <li>구성원·학습·자료 현황판</li>
+            </ul>
+          </div>
+          <div class="pair">
+            <div class="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>교수·학생</div>
+              <img src="assets/admin-members.png" width="1280" height="844" loading="lazy" alt="교수·학생 관리 화면. 이름, 아이디, 학번, 역할, 학과, 상태가 표로 보인다.">
+            </div>
+            <div class="shot">
+              <div class="shot-bar"><i></i><i></i><i></i>현황</div>
+              <img src="assets/admin-home.png" width="1280" height="844" loading="lazy" alt="운영 콘솔 현황 화면. 구성원 수, 평균 진도, 자료 수가 타일로 보인다.">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="features">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>02</b>기능</div>
+          <div>
+            <h2>지금 들어 있는 것</h2>
+            <p>현재 버전(v0.2.0)에 구현된 기능입니다.</p>
+          </div>
+        </div>
+        <div class="ledger">
+          <div><span class="n">가</span><h3>실시간 수업</h3><p>영상, 음성, 화면 공유와 채팅으로 수업을 진행합니다. 수업에 입장 비밀번호를 걸 수 있고, 3D 자료를 수업방에 띄워 함께 볼 수 있습니다.</p></div>
+          <div><span class="n">나</span><h3>학습 자료</h3><p>문서, 영상, 3D 모델(GLB)을 올리고 분류합니다. 파일 하나의 상한은 300MB 입니다.</p></div>
+          <div><span class="n">다</span><h3>교육과정과 진도</h3><p>과정에 학습 항목을 묶어 순서를 만들고, 학생별·과목별로 어디까지 마쳤는지 봅니다.</p></div>
+          <div><span class="n">라</span><h3>출석</h3><p>수업마다 출석부가 남고, 학생별 출석률과 체류 시간, 결석 횟수를 통계로 봅니다.</p></div>
+          <div><span class="n">마</span><h3>구성원과 권한</h3><p>운영자, 교수자, 외부 강사, 학습자 네 역할로 나눕니다. 역할이 없는 계정은 로그인되지 않습니다.</p></div>
+          <div><span class="n">바</span><h3>학과</h3><p>구성원을 학과에 소속시키고 목록을 학과별로 걸러 봅니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="install">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>03</b>설치와 운영</div>
+          <div>
+            <h2>설정 파일 하나, 명령 한 번</h2>
+            <p>설정과 비밀값은 <code style="font-family: var(--mono); font-size: 0.88em">.env</code> 한 파일에 모입니다. 설치 스크립트는 여러 번 돌려도 기존 계정과 데이터를 건드리지 않습니다.</p>
+          </div>
+        </div>
+        <div class="install">
+          <div class="term" aria-label="설치 명령 예시">
+<pre><span class="c"># 1. 설정 파일을 만들고 서버 주소와 비밀번호를 적는다</span>
+<span class="p">$</span> cp .env.example .env
+
+<span class="c"># 2. 전체 스택 설치와 기동</span>
+<span class="p">$</span> ./scripts/install.sh
+
+<span class="c"># 평소 운영</span>
+<span class="p">$</span> ./scripts/backup.sh --keep 14
+<span class="p">$</span> ./scripts/restore.sh backups/lms-backup-….tar
+<span class="p">$</span> ./scripts/update.sh</pre>
+          </div>
+          <div class="modes">
+            <div><h3>교내망 IP 로 설치</h3><p>도메인 없이 서버 IP 로 엽니다. 사설 인증서로 HTTPS 를 쓰도록 구성합니다.</p></div>
+            <div><h3>도메인 + HTTPS 로 설치</h3><p>공인 도메인을 연결하면 프록시가 인증서를 받아 옵니다.</p></div>
+            <div><h3>백업은 파일 하나</h3><p>데이터베이스, 올린 파일, 설정, 인증서가 <code>tar</code> 한 묶음으로 나옵니다. 서비스를 멈추지 않고 받고, 새 서버로 옮길 때도 같은 묶음을 씁니다.</p></div>
+            <div><h3>설치 뒤에는 인터넷 없이</h3><p>설치할 때만 이미지와 패키지를 받습니다. 그 뒤로는 외부 연결 없이 동작합니다(도메인 설치의 인증서 갱신 제외).</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="spec">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>04</b>서버 사양</div>
+          <div>
+            <h2>준비할 서버</h2>
+            <p>Docker 가 도는 64비트 Linux 서버 한 대면 됩니다.</p>
+          </div>
+        </div>
+        <div class="spec">
+          <div>
+            <table>
+              <caption>하드웨어</caption>
+              <thead><tr><th scope="col"></th><th scope="col">최소</th><th scope="col">권장</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">CPU</th><td>4 코어</td><td>8 코어</td></tr>
+                <tr><th scope="row">메모리</th><td>8 GB</td><td>16 GB</td></tr>
+                <tr><th scope="row">디스크</th><td>40 GB + 영상 용량</td><td>SSD 200 GB 이상</td></tr>
+                <tr><th scope="row">운영체제</th><td colspan="2">Ubuntu 22.04 / 24.04 LTS 권장 (x86_64 · arm64)</td></tr>
+                <tr><th scope="row">소프트웨어</th><td colspan="2">Docker Engine 24 이상, Docker Compose 2.20 이상</td></tr>
+              </tbody>
+            </table>
+            <p class="note">실시간 수업은 영상·음성용 UDP 포트를 서버 방화벽과 학교 방화벽에서 열어야 합니다. 자세한 포트 목록은 설치 안내서에 있습니다.</p>
+          </div>
+          <div>
+            <table>
+              <caption>함께 설치되는 소프트웨어</caption>
+              <thead><tr><th scope="col">구성</th><th scope="col">하는 일</th></tr></thead>
+              <tbody>
+                <tr><td>Appwrite</td><td>계정, 데이터베이스, 파일 저장</td></tr>
+                <tr><td>MariaDB · Redis</td><td>데이터베이스와 캐시</td></tr>
+                <tr><td>LiveKit</td><td>실시간 수업</td></tr>
+                <tr><td>Caddy</td><td>앞단 프록시, HTTPS 인증서</td></tr>
+              </tbody>
+            </table>
+            <p class="note">데이터베이스와 Appwrite 는 서버 안에서만 통신하고 밖으로 열리지 않습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="next">
+      <div class="wrap">
+        <div class="chapter-head">
+          <div class="chapter-no"><b>05</b>준비 중</div>
+          <div>
+            <h2>아직 없는 것</h2>
+            <p>아래 기능은 개발 중이며 현재 버전에는 들어 있지 않습니다.</p>
+          </div>
+        </div>
+        <div class="next">
+          <div><h3>평가</h3><p>퀴즈, 과제, 성적, 수료 처리</p></div>
+          <div><h3>학사 구조</h3><p>과목에 전공, 학기, 과목 코드를 붙여 관리</p></div>
+          <div><h3>출석·진도 검증</h3><p>브라우저가 보고한 값을 서버에서 확인</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ask-block" id="ask">
+      <div class="wrap">
+        <div>
+          <h2>도입을 검토 중이신가요</h2>
+          <p>학교 규모와 설치 환경을 알려 주시면 시연과 설치 안내서를 보내 드립니다.</p>
+        </div>
+        <a class="btn" href="https://mint-soft.com">MintSoft 에 문의하기</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© MintSoft</span>
+      <span>LMS v0.2.0 · <a href="https://mint-soft.com">mint-soft.com</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+      function select(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute("aria-selected", on ? "true" : "false");
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+        });
+      }
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener("click", function () { select(tab); });
+        tab.addEventListener("keydown", function (e) {
+          var step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+          if (!step) return;
+          var next = tabs[(i + step + tabs.length) % tabs.length];
+          select(next);
+          next.focus();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
